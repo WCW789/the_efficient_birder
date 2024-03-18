@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_18_200128) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_18_204734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "birds", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.datetime "datetime"
+    t.text "notes"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_birds_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.citext "email", default: "", null: false
@@ -29,4 +41,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_18_200128) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "birds", "users"
 end
