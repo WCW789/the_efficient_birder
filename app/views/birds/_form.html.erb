@@ -1,4 +1,11 @@
-<%= form_with(model: bird) do |form| %>
+<%= form_with model: @bird, local: true do |form| %>
+  <%= form.file_field :image %>
+  <%= form.submit %>
+
+  <% bird.image.each do |img| %>
+    <%= image_tag(img.variant(resize_to_limit: [150, nil])) %>
+  <% end %>
+
   <% if bird.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(bird.errors.count, "error") %> prohibited this bird from being saved:</h2>
@@ -10,11 +17,9 @@
       </ul>
     </div>
   <% end %>
+<% end %>
 
-  <div>
-    <%= form.file_field :image %>
-  </div>
-
+<% if false %>
   <div>
     <%= form.label :user_id, style: "display: block" %>
     <%= form.text_field :user_id %>
