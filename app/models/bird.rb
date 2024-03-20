@@ -21,7 +21,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Bird < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   has_many_attached :image
 
   validate :acceptable_image

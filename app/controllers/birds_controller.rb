@@ -21,7 +21,8 @@ class BirdsController < ApplicationController
 
   # POST /birds or /birds.json
   def create
-    @bird = Bird.new(bird_params)
+    @user = User.find(params[:user_id])
+    @bird = @user.birds.build(bird_params)
 
     respond_to do |format|
       if @bird.save
