@@ -1,4 +1,5 @@
 class BirdsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_bird, only: %i[ show edit update destroy ]
 
   # GET /birds or /birds.json
@@ -21,8 +22,11 @@ class BirdsController < ApplicationController
 
   # POST /birds or /birds.json
   def create
-    @user = User.find(params[:user_id])
-    @bird = @user.birds.build(bird_params)
+    unless current_user
+      return redirect_to root_path, alert: "User not found"
+    end
+
+    @bird = current_user.bird.build(bird_params)
 
     respond_to do |format|
       if @bird.save
@@ -37,6 +41,7 @@ class BirdsController < ApplicationController
 
   # PATCH/PUT /birds/1 or /birds/1.json
   def update
+    @bird = Bird.find(params[:id])
     respond_to do |format|
       if @bird.update(bird_params)
         format.html { redirect_to bird_url(@bird), notice: "Bird was successfully updated." }
