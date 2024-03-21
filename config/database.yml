@@ -94,4 +94,6 @@ test:
 #
 production:
   <<: *default
+  database: birdsite
+  username: birdsite
   url: <%= ENV['DATABASE_URL'] %>
