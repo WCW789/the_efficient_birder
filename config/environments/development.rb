@@ -3,12 +3,6 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # AWS
   config.active_storage.service = :amazon
-  config.active_storage.amazon_credentials = {
-  access_key_id:     Rails.application.credentials.dig(:aws, :access_key_id),
-  secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key),
-  region:            Rails.application.credentials.dig(:aws, :region),
-  bucket:            Rails.application.credentials.dig(:aws, :bucket)
-}
 
   # Devise
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
@@ -55,7 +49,7 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  # config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
