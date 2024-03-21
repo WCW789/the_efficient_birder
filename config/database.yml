@@ -94,6 +94,4 @@ test:
 #
 production:
   <<: *default
-  database: the_efficient_birder_production
-  username: the_efficient_birder
-  password: <%= ENV["RAILS_TEMPLATE_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
