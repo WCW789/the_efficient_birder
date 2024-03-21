@@ -3,7 +3,7 @@
   <% if bird.image.attached? %>
     <% bird.image.each do |img| %>
       <% if img.persisted? %>
-        <%= image_tag img.variant(resize_to_limit: [150, nil]) %>
+        <%= image_tag img.variant(resize_to_limit: [244, nil]) %>
       <% end %>
     <% end %>
   <% end %>
