@@ -14,7 +14,7 @@ services:
         sync: false
 
 databases:
-  - name: birdsite
-    databaseName: birdsite
-    user: birdsite
+  - name: the-efficient-birder
+    databaseName: the-efficient-birder
+    user: the-efficient-birder
     plan: free
