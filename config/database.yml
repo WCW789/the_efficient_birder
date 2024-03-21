@@ -96,4 +96,5 @@ production:
   <<: *default
   database: birdsite
   username: birdsite
+  password: <%= ENV['DATABASE_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
