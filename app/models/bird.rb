@@ -26,6 +26,12 @@ class Bird < ApplicationRecord
 
   validate :acceptable_image
 
+  def image_attributes=(image_attributes)
+    image_attributes.each do |i, image_attributes|
+      self.image.attach(image_attributes[:image])
+    end
+  end
+
   def acceptable_image
     return unless image.attached?
 

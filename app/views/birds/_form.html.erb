@@ -1,6 +1,10 @@
 <%= form_with model: @bird, local: true do |form| %>
-  <% bird.image.each do |img| %>
-    <%= image_tag(img.variant(resize_to_limit: [150, nil])) %>
+  <% if bird.image.attached? %>
+    <% bird.image.each do |img| %>
+      <% if img.persisted? %>
+        <%= image_tag img.variant(resize_to_limit: [150, nil]) %>
+      <% end %>
+    <% end %>
   <% end %>
 
   <% if bird.errors.any? %>
@@ -14,6 +18,12 @@
       </ul>
     </div>
   <% end %>
+
+  <div>
+    <%= form.fields_for :image do |image_upload| %>
+      <%= image_upload.file_field :image %>
+    <% end %>
+  <div>
 
   <div>
     <%= form.label :user_id, style: "display: block" %>
@@ -45,6 +55,7 @@
     <%= form.text_field :longitude %>
   </div>
 
-  <%= form.file_field :image %>
-  <%= form.submit %>
+  <div>
+    <%= form.submit %>
+  </div>
 <% end %>

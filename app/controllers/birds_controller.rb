@@ -14,6 +14,7 @@ class BirdsController < ApplicationController
   # GET /birds/new
   def new
     @bird = Bird.new
+    @bird.image.build
   end
 
   # GET /birds/1/edit
@@ -71,6 +72,6 @@ class BirdsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bird_params
-      params.require(:bird).permit(:user_id, :name, :datetime, :notes, :latitude, :longitude, :image)
+      params.require(:bird).permit(:user_id, :name, :datetime, :notes, :latitude, :longitude, image_attributes: [:image])
     end
 end
