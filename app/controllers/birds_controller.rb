@@ -1,4 +1,9 @@
+require 'rest-client'
+require 'json'
+
 class BirdsController < ApplicationController
+  include ApplicationHelper
+
   before_action :authenticate_user!
   before_action :set_bird, only: %i[ show edit update destroy ]
 
@@ -38,6 +43,21 @@ class BirdsController < ApplicationController
         format.json { render json: @bird.errors, status: :unprocessable_entity }
       end
     end
+
+    url = 'http://127.0.0.1:5000/bird'
+
+    bucket_name = ENV['S3_BUCKET']
+    object_key = s3_object_keys(bucket_name)
+    aws_region = ENV['AWS_REGION']
+    s3_object_url = "https://#{bucket_name}.s3.#{aws_region}.amazonaws.com/#{object_key}"
+  
+    data = { url: s3_object_url }.to_json
+
+    @response = RestClient.post(url, data.to_json, content_type: :json)
+
+    @reponse_body = @response.body
+  
+    puts "Look right here: " + @reponse_body
   end
 
   # PATCH/PUT /birds/1 or /birds/1.json

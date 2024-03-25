@@ -178,6 +178,7 @@ GEM
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
       llhttp-ffi (~> 0.4.0)
+    http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
@@ -224,6 +225,9 @@ GEM
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
+    mime-types (3.5.2)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2024.0305)
     mini_magick (4.12.0)
     mini_mime (1.1.2)
     minitest (5.20.0)
@@ -239,6 +243,7 @@ GEM
       timeout
     net-smtp (0.3.3)
       net-protocol
+    netrc (0.11.0)
     nio4r (2.5.9)
     nokogiri (1.15.2-arm64-darwin)
       racc (~> 1.4)
@@ -315,6 +320,11 @@ GEM
     responders (3.1.0)
       actionpack (>= 5.2)
       railties (>= 5.2)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rexml (3.2.5)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
@@ -459,6 +469,7 @@ DEPENDENCIES
   rails-erd
   rails_db
   redis (~> 4.0)
+  rest-client (~> 2.1)
   rspec-html-matchers
   rspec-rails (~> 6.0.0)
   rufo

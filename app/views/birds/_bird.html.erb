@@ -3,7 +3,7 @@
   <% if bird.image.attached? %>
     <% bird.image.each do |img| %>
       <% if img.persisted? %>
-        <%= image_tag img.variant(resize_to_limit: [244, nil]) %>
+        <%= image_tag img.variant(resize_to_limit: [224, nil]) %>
       <% end %>
     <% end %>
   <% end %>
@@ -15,7 +15,7 @@
 
   <p>
     <strong>Name:</strong>
-    <%= bird.name %>
+    <%= @response_body %>
   </p>
 
   <p>
