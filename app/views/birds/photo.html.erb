@@ -1,0 +1,53 @@
+<h1> Take Photo </h1>
+
+<video id="video" playsinline autoplay></video>
+<button id="captureButton">Capture</button>
+<canvas id="canvas"></canvas>
+
+<script>
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const captureButton = document.getElementById('captureButton');
+
+navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+        video.srcObject = stream;
+    })
+    .catch(error => {
+        console.error('Error accessing the camera:', error);
+    });
+
+captureButton.addEventListener('click', () => {
+      const context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      canvas.toBlob(function (blob) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/birds/photo/', true);
+
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+
+        const formData = new FormData();
+        formData.append('blobb', blob, 'snapshot.jpeg');
+
+        xhr.onload = function() { 
+          if (xhr.status === 200) {
+            console.log('Image upload successful!');
+    
+            const response = xhr.responseText;
+            console.log('Server response:', response);
+
+          } else {
+            console.error('Image upload failed. Status:', xhr.status);
+          }
+        }
+        
+        xhr.send(formData);
+      }, 'image/jpeg');
+    
+    });
+
+ </script>
+ </body>
+</html>
