@@ -31,19 +31,38 @@ class BirdsController < ApplicationController
   end
 
   def save_photo
-    uploaded_file = params[:blobb]
+    # uploaded_file = params[:blobb]
+    uploaded_file = params[:blob_field]
 
-    if uploaded_file.present?
+    # if uploaded_file.present?
 
-      File.open(Rails.root.join('public', 'uploads', uploaded_file.original_filename), 'wb') do |file|
-        file.write(uploaded_file.read)
-      end
-    end
+    #   File.open(Rails.root.join('public', 'uploads', uploaded_file.original_filename), 'wb') do |file|
+    #     file.write(uploaded_file.read)
+    #   end
+    # end
 
-    image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg')
-    uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
-    @image_url = uploader.upload
-    puts "The image URL: " + @image_url
+    # image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg')
+    # uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
+
+    url = 'http://127.0.0.1:5000/bird'
+    
+    bucket_name = ENV['S3_BUCKET']
+    aws_region = ENV['AWS_REGION']
+    s3_object_url = uploader.upload
+
+    puts s3_object_url
+    puts "here"
+  
+    data = { url: s3_object_url }.to_json
+
+    @response = RestClient.post(url, data.to_json, content_type: :json)
+
+    @response_body = @response.body
+  
+    puts "Look over here: " + @response_body
+
+    # @bird.name = @response_body
+    # @bird.save
   end
 
   # POST /birds or /birds.json
@@ -70,7 +89,7 @@ class BirdsController < ApplicationController
     end
 
     url = 'http://127.0.0.1:5000/bird'
-
+    
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
     s3_object_url = "https://#{bucket_name}.s3.#{aws_region}.amazonaws.com/#{key}"
@@ -79,13 +98,12 @@ class BirdsController < ApplicationController
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
 
-    @reponse_body = @response.body
+    @response_body = @response.body
   
-    puts "Look right here: " + @reponse_body
+    puts "Look right here: " + @response_body
 
-    @bird.name = @reponse_body
+    @bird.name = @response_body
     @bird.save
-
   end
 
   # PATCH/PUT /birds/1 or /birds/1.json

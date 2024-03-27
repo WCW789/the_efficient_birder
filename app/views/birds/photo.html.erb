@@ -1,8 +1,15 @@
 <h1> Take Photo </h1>
 
-<video id="video" playsinline autoplay></video>
-<button id="captureButton">Capture</button>
-<canvas id="canvas"></canvas>
+<video id="video" autoplay height=100></video>
+<br>
+<button id="captureButton">🔴</button>
+<br>
+<canvas id="canvas" height=100 width=125></canvas>
+
+<%= form_with url: "/birds/photo", method: :post do |form| %>
+  <%= form.hidden_field :blob_field, :value => "no blob yet" %>
+  <%= form.submit "Submit" %>
+<% end %>
 
 <script>
 const video = document.getElementById('video');
@@ -18,9 +25,16 @@ navigator.mediaDevices.getUserMedia({ video: true })
     });
 
 captureButton.addEventListener('click', () => {
+      canvas.width = 125
+      canvas.height = 100
       const context = canvas.getContext('2d');
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
+      const imageUrl = canvas.toDataURL('image/png');
+      const imageElement = new Image();
+      imageElement.src = imageUrl;
+      document.getElementById('blob_field').value = imageUrl ;
+      
       canvas.toBlob(function (blob) {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '/birds/photo/', true);
@@ -45,7 +59,6 @@ captureButton.addEventListener('click', () => {
         
         xhr.send(formData);
       }, 'image/jpeg');
-    
     });
 
  </script>
