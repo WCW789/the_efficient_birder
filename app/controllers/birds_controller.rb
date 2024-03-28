@@ -31,44 +31,63 @@ class BirdsController < ApplicationController
   end
 
   def save_photo
-    # uploaded_file = params[:blobb]
-    uploaded_file = params[:blob_field]
+    @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
 
-    # if uploaded_file.present?
+    uploaded_file = params[:blobb]
 
-    #   File.open(Rails.root.join('public', 'uploads', uploaded_file.original_filename), 'wb') do |file|
-    #     file.write(uploaded_file.read)
-    #   end
-    # end
+    if uploaded_file.present?
+      File.open(Rails.root.join('public', 'uploads', uploaded_file.original_filename), 'wb') do |file|
+        file.write(uploaded_file.read)
+      end
+    end
 
-    # image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg')
-    # uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
+    image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg')
+    uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
+
+    respond_to do |format|
+      if @bird.save
+        format.html { redirect_to bird_url(@bird), notice: "Bird was successfully created." }
+        format.json { render :show, status: :created, location: @bird }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @bird.errors, status: :unprocessable_entity }
+      end
+    end
 
     url = 'http://127.0.0.1:5000/bird'
     
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
-    s3_object_url = uploader.upload
 
-    puts s3_object_url
-    puts "here"
-  
+    s3_object_url = uploader.upload
     data = { url: s3_object_url }.to_json
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
-
     @response_body = @response.body
   
     puts "Look over here: " + @response_body
 
-    # @bird.name = @response_body
-    # @bird.save
+    @bird.name = @response_body
+    @bird.datetime = Time.new
+
+    blob_field = params[:blob_field]
+
+    base64_data = blob_field.split(',')[1]
+    binary_data = Base64.strict_decode64(base64_data)
+    
+    filename = "image_#{Time.current.to_i}.jpg"
+    content_type = 'image/jpeg'
+    image_blob = ActiveStorage::Blob.create_and_upload!(
+      io: StringIO.new(binary_data),
+      filename: filename,
+      content_type: content_type
+    )
+
+    @bird.image.attach(image_blob)
+    @bird.save
   end
 
   # POST /birds or /birds.json
-  # def upload
-  # end
-
   def create
     unless current_user
       return redirect_to root_path, alert: "User not found"
