@@ -3,7 +3,6 @@
   <% if bird.image.attached? %>
     <% bird.image.each do |img| %>
         <%= image_tag img.variant(resize_to_limit: [224, nil]) %>
-        <%= bird.inspect %>
     <% end %>
 
   <p>
