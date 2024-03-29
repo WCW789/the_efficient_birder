@@ -6,13 +6,17 @@ class ImageUploader
     @bucket_name = bucket_name
   end
 
-  def upload
-    s3 = Aws::S3::Resource.new
-    bucket = s3.bucket(@bucket_name)
+  def upload(blob_field)
+    s3 = Aws::S3::Resource.new(region: ENV['AWS_REGION'])
     filename = File.basename(@image_path)
     object_key = generate_object_key(filename)
-    obj = bucket.object(object_key)
+
+    blob_hash = Digest::SHA256.hexdigest(blob_field)
+    obj = s3.bucket(@bucket_name).object(object_key).put(
+      body: blob_field,
+    )
     obj.upload_file(@image_path)
+    obj.wait_until_exists
     obj.public_url
   end
 

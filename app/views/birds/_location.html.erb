@@ -1,0 +1,28 @@
+<script>
+  const latitudeInput = document.querySelector('input[name="latitude])
+  const longitudeInput = document.querySelector('input[name="longitude])
+
+  const form = document.querySelector('form')
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        latitudeInput.value = latitude;
+        longitudeInput.value = longitude;
+
+        form.submit();
+      },
+      (error) => {
+        console.log('Error getting location:', error);
+      },
+      {
+        enableHighAccuracy: true,
+        maximumAge: 0, 
+      }
+    )
+  })
+</script>
