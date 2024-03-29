@@ -2,11 +2,9 @@
 
   <% if bird.image.attached? %>
     <% bird.image.each do |img| %>
-      <% if img.persisted? %>
         <%= image_tag img.variant(resize_to_limit: [224, nil]) %>
-      <% end %>
+        <%= bird.inspect %>
     <% end %>
-  <% end %>
 
   <p>
     <strong>Name:</strong>
@@ -32,5 +30,8 @@
     <strong>Notes:</strong>
     <%= bird.notes %>
   </p>
+
+  <%= link_to "Show this bird", bird %>
+<% end %>
 
 </div>
