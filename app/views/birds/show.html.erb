@@ -1,10 +1,8 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render @bird %>
 
 <div>
-  <%= link_to "Edit this bird", edit_bird_path(@bird) %> |
-  <%= link_to "Back to birds", birds_path %>
-
+  <%= link_to "Add new bird", birds_photo_path %><br>
+  <%= link_to "Edit this bird", edit_bird_path(@bird) %><br>
+  <%= link_to "Back to birds", birds_path %><br>
   <%= button_to "Destroy this bird", @bird, method: :delete %>
 </div>
