@@ -6,9 +6,6 @@ ruby "3.2.1"
 # AWS
 gem 'aws-sdk-s3', require: false
 
-# Digest
-gem 'digest', '~> 3.1', '>= 3.1.1'
-
 # Rest client
 gem 'rest-client', '~> 2.1'
 

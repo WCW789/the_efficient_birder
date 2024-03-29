@@ -1,6 +1,5 @@
 require 'rest-client'
 require 'json'
-require 'digest'
 
 class BirdsController < ApplicationController
   # include ApplicationHelper
@@ -32,8 +31,6 @@ class BirdsController < ApplicationController
   end
 
   def save_photo
-    @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
-
     uploaded_file = params[:blobb]
     blob_field = params[:blob_field]
 
@@ -45,6 +42,9 @@ class BirdsController < ApplicationController
 
     image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg')
     uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
+    
+    @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
+    
     respond_to do |format|
       if @bird.save
         format.html { redirect_to bird_url(@bird), notice: "Bird was successfully uploaded." }
@@ -60,7 +60,7 @@ class BirdsController < ApplicationController
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
 
-    s3_object_url = uploader.upload(blob_field)
+    s3_object_url = uploader.upload()
     data = { url: s3_object_url }.to_json
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
@@ -70,8 +70,6 @@ class BirdsController < ApplicationController
 
     @bird.name = @response_body
     @bird.datetime = Time.new
-
-
 
     base64_data = blob_field.split(',')[1] 
     binary_data = Base64.strict_decode64(base64_data)
@@ -124,7 +122,6 @@ class BirdsController < ApplicationController
     data = { url: s3_object_url }.to_json
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
-
     @response_body = @response.body
   
     puts "Look right here: " + @response_body
