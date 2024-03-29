@@ -1,0 +1,13 @@
+img, video {
+  height: 150px;
+  max-width: 100%;
+}
+
+a {
+  color: lightseagreen;
+}
+
+h2 {
+  font-size: larger;
+  font-weight: bold;
+}
