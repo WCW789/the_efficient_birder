@@ -26,16 +26,17 @@ class ImageUploader
   def get_public_url
     s3 = Aws::S3::Resource.new
     bucket = s3.bucket(@bucket_name)
-    filename = File.basename(@image_path)
-    object_key = generate_object_key(filename)
+    # filename = File.basename(@image_path) 
+    object_key = "#{SecureRandom.uuid}"
     obj = bucket.object(object_key)
+    sleep(2)
     obj.upload_file(@image_path)
     obj.wait_until_exists
     obj.public_url
   end
 
-  def generate_object_key(filename)
-    extension = File.extname(filename).downcase
-    "#{SecureRandom.uuid}#{extension}"
-  end
+  # def generate_object_key(filename)
+  #   extension = File.extname(filename).downcase
+  #   "#{SecureRandom.uuid}#{extension}"
+  # end
 end

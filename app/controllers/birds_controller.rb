@@ -33,6 +33,8 @@ class BirdsController < ApplicationController
   def save_photo
     uploaded_file = params[:blobb]
     blob_field = params[:blob_field]
+    latitude = params[:latitude]
+    longitude = params[:longitude]
 
     if uploaded_file.present?
       File.open(Rails.root.join('public', 'uploads', uploaded_file.original_filename), 'wb') do |file|
@@ -83,13 +85,9 @@ class BirdsController < ApplicationController
     )
     
     @bird.image.attach(image_blob)
-
-    latitude = params[:latitude]
-    longitude = params[:longitude]
-
     @bird.latitude = latitude
-    @bird.longitude = longitude 
-
+    @bird.longitude = longitude
+    
     @bird.save
   end
 

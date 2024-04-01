@@ -13,8 +13,8 @@
   <%= form.hidden_field :user_id %>
   <%= form.hidden_field :name %>
   <%= form.hidden_field :datetime %>
-  <%= form.hidden_field :latitude %>
-  <%= form.hidden_field :longitude %>
+  <%= form.hidden_field :latitude, id: 'latitude' %>
+  <%= form.hidden_field :longitude, id: 'longitude' %>
   <%= form.hidden_field :notes %>
 
   <div>
@@ -23,6 +23,9 @@
 <% end %>
 
 <script>
+const latitudeInput = document.getElementById('latitude')
+const longitudeInput = document.getElementById('longitude')
+
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const captureButton = document.getElementById('captureButton');
@@ -35,7 +38,9 @@ navigator.mediaDevices.getUserMedia({ video: true })
         console.error('Error accessing the camera:', error);
     });
 
-captureButton.addEventListener('click', () => {
+captureButton.addEventListener('click', (event) => {
+      event.preventDefault();
+
       canvas.width = 125
       canvas.height = 100
       const context = canvas.getContext('2d');
@@ -43,6 +48,28 @@ captureButton.addEventListener('click', () => {
 
       const imageUrl = canvas.toDataURL('image/jpeg');
       document.getElementById('blob_field').value = imageUrl;
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+
+          latitudeInput.value = latitude;
+          longitudeInput.value = longitude;
+
+          localStorage.setItem('latitude', latitudeInput.value);
+          localStorage.setItem('longitude', longitudeInput.value);
+
+          captureButton.form.submit();
+        },
+        (error) => {
+          console.log('Error getting location:', error);
+        },
+        {
+          enableHighAccuracy: true,
+          maximumAge: 0, 
+        }
+      )
       
       canvas.toBlob(function (blob) {
         const xhr = new XMLHttpRequest();
@@ -65,7 +92,6 @@ captureButton.addEventListener('click', () => {
             console.error('Image upload failed. Status:', xhr.status);
           }
         }
-        
         xhr.send(formData);
       }, 'image/jpeg');
     });

@@ -1,3 +1,9 @@
+body {
+  background-color: blanchedalmond;
+  margin: 10;
+  padding: 10;
+}
+
 img, video {
   height: 150px;
   max-width: 100%;
@@ -10,4 +16,17 @@ a {
 h2 {
   font-size: larger;
   font-weight: bold;
+}
+
+#map {
+  position: absolute;
+  width: 100%;
+}
+
+.marker {
+  background-image: url('mapbox-marker-icon-20px-pink.png');
+  background-size: cover;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
 }
