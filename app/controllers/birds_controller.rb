@@ -12,6 +12,17 @@ class BirdsController < ApplicationController
     @birds = Bird.all
   end
 
+  def export
+    @birds = Bird.all
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{current_user.username}'s_birding_journal", template: 'birds/export.html.erb'
+      end
+    end
+  end
+
   # GET /birds/1 or /birds/1.json
   def show
   end

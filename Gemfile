@@ -9,6 +9,12 @@ gem 'aws-sdk-s3', require: false
 # Rest client
 gem 'rest-client', '~> 2.1'
 
+# Wicked PDF
+gem 'wicked_pdf'
+
+# wkhtmltopdf
+gem 'wkhtmltopdf-binary'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
