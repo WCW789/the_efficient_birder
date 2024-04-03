@@ -35,7 +35,7 @@ navigator.mediaDevices.getUserMedia({ video: true })
         video.srcObject = stream;
     })
     .catch(error => {
-        console.error('Error accessing the camera:', error);
+        console.error('Error accessing the camera');
     });
 
 captureButton.addEventListener('click', (event) => {
@@ -63,7 +63,7 @@ captureButton.addEventListener('click', (event) => {
           captureButton.form.submit();
         },
         (error) => {
-          console.log('Error getting location:', error);
+          console.log('Error getting location');
         },
         {
           enableHighAccuracy: true,

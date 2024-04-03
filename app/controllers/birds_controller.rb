@@ -72,7 +72,7 @@ class BirdsController < ApplicationController
       end
     end
 
-    url = 'http://127.0.0.1:5000/bird'
+    url = 'http://127.0.0.1:5000/bird' || 'https://bird-recognition-vdf7.onrender.com/bird'
     
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
@@ -82,8 +82,6 @@ class BirdsController < ApplicationController
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
     @response_body = @response.body
-  
-    puts "Look over here: " + @response_body
 
     @bird.name = @response_body
     @bird.datetime = Time.new
@@ -126,7 +124,7 @@ class BirdsController < ApplicationController
       end
     end
 
-    url = 'http://127.0.0.1:5000/bird'
+    url = 'http://127.0.0.1:5000/bird' || 'https://bird-recognition-vdf7.onrender.com/bird'
     
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
@@ -136,8 +134,6 @@ class BirdsController < ApplicationController
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
     @response_body = @response.body
-  
-    puts "Look right here: " + @response_body
 
     @bird.name = @response_body
     @bird.save
