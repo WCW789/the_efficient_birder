@@ -72,7 +72,7 @@ class BirdsController < ApplicationController
       end
     end
 
-    url = 'http://127.0.0.1:5000/bird' || 'https://bird-recognition-vdf7.onrender.com/bird'
+    url = 'http://127.0.0.1:5000/bird' || ENV['FLASK']
     
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
@@ -124,7 +124,7 @@ class BirdsController < ApplicationController
       end
     end
 
-    url = 'http://127.0.0.1:5000/bird' || 'https://bird-recognition-vdf7.onrender.com/bird'
+    url = 'http://127.0.0.1:5000/bird' || ENV['FLASK']
     
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
