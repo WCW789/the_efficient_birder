@@ -1,7 +1,7 @@
 <h1>Birds</h1>
 
 <div>
-  <% @birds.each do |bird| %>
-    <%= render bird %>
+  <% Bird.all.each do |bird| %>
+    <%= bird.name %>
   <% end %>
 </div>

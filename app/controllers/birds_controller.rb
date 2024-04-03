@@ -20,9 +20,9 @@ class BirdsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "export",
-        template: 'birds/export',
-        layout: false
+        pdf_html = ActionController::Base.new.render_to_string(template: 'birds/export', layout: false)
+        pdf = WickedPdf.new.pdf_from_string(pdf_html)
+        send_data pdf, filename: 'birding_journal.pdf'
       end
     end
   end
