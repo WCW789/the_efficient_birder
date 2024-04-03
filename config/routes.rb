@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 
   get("/birds/photo", { :controller => "birds", :action => "take_photo" })
   post("/birds/photo", { :controller => "birds", :action => "save_photo" })
+  get("/birds/export", { :controller => "birds", :action => "export"})
   get("/uploads/:filename", { :controller => "uploads", :action => "show", constraints: { filename: /[^\/]+/ } })
-  get("/export_birding_journal", { :controller => "birds", :action => "export", :as => "export_birding_journal" })
   resources :birds
 
 end
