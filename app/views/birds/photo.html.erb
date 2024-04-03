@@ -83,13 +83,9 @@ captureButton.addEventListener('click', (event) => {
 
         xhr.onload = function() { 
           if (xhr.status === 200) {
-            console.log('Image upload successful!', imageUrl);
-    
-            const response = xhr.responseText;
-            console.log('Server response:', response);
-
+            console.log('Image upload successful');
           } else {
-            console.error('Image upload failed. Status:', xhr.status);
+            console.error('Image upload failed');
           }
         }
         xhr.send(formData);

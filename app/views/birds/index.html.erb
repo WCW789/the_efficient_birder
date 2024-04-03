@@ -3,6 +3,8 @@
 
 <h1>Birds</h1>
 
+<%= link_to "Export Birding Journal", birds_export_path(format: :pdf) %>
+
 <div id="birds">
   <% @birds.each do |bird| %>
     <%= render bird %>

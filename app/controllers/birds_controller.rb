@@ -12,6 +12,21 @@ class BirdsController < ApplicationController
     @birds = Bird.all
   end
 
+  def export
+    @birds = Bird.all
+
+    # render birds_export_path
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf_html = ActionController::Base.new.render_to_string(template: 'birds/export', layout: false)
+        pdf = WickedPdf.new.pdf_from_string(pdf_html)
+        send_data pdf, filename: 'birding_journal.pdf'
+      end
+    end
+  end
+
   # GET /birds/1 or /birds/1.json
   def show
   end
