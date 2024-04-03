@@ -6,6 +6,12 @@ ruby "3.2.1"
 # AWS
 gem 'aws-sdk-s3', require: false
 
+# Tailwind
+gem "tailwindcss-rails", "~> 2.3"
+
+# Admin
+gem "rails_admin", "~> 3.1"
+
 # Rest client
 gem 'rest-client', '~> 2.1'
 
@@ -55,7 +61,7 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 
 # Use Sass to process CSS
-# gem "sassc-rails"
+gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
@@ -119,5 +125,3 @@ group :test do
   gem "rspec-html-matchers"
   gem "webmock"
 end
-
-gem "tailwindcss-rails", "~> 2.3"

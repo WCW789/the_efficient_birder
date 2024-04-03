@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  authenticate :user, ->(user) { user.admin? } do
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  end
+
   devise_for :users
   root "birds#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
