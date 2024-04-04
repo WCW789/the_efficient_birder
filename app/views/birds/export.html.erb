@@ -1,7 +1,30 @@
 <h1>Birds</h1>
 
+<% image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg') %>
+<% uploader = ImageUploader.new(image_path, ENV['S3_BUCKET']) %>
+<% @s3_object_url = uploader.upload() %>
+
 <div>
   <% Bird.all.each do |bird| %>
-    <%= bird.name %>
+     <% if bird.image.attached? %>
+      <% bird.image.each do |img| %>
+      <%= wicked_pdf_image_tag(@s3_object_url) %>
+     <% end %>
+    <p>
+      <%= bird.name %>
+    </p>
+    </p>
+      <%= bird.datetime %>
+    </p>
+    </p>
+      <%= bird.latitude %>
+    </p>
+    </p>
+      <%= bird.longitude %>
+    </p>
+    <p>
+      <%= bird.notes %>
+    </p>
+   <% end %>
   <% end %>
 </div>

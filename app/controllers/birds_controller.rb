@@ -61,6 +61,8 @@ class BirdsController < ApplicationController
     uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
     
     @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
+
+    puts "new bird photo #{@bird}"
     
     respond_to do |format|
       if @bird.save
@@ -73,6 +75,8 @@ class BirdsController < ApplicationController
     end
 
     url = 'http://127.0.0.1:5000/bird' || ENV['FLASK']
+
+    puts "url_photo #{url}"
     
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
@@ -82,6 +86,8 @@ class BirdsController < ApplicationController
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
     @response_body = @response.body
+
+    puts "response_body_photo #{@response_body}"
 
     @bird.name = @response_body
     @bird.datetime = Time.new
@@ -111,6 +117,7 @@ class BirdsController < ApplicationController
     end
 
     @bird = current_user.bird.build(bird_params)
+    puts "new bird create #{@bird}"
     key = nil
 
     respond_to do |format|
@@ -125,6 +132,8 @@ class BirdsController < ApplicationController
     end
 
     url = 'http://127.0.0.1:5000/bird' || ENV['FLASK']
+
+    puts "url_create #{url}"
     
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
@@ -135,7 +144,11 @@ class BirdsController < ApplicationController
     @response = RestClient.post(url, data.to_json, content_type: :json)
     @response_body = @response.body
 
+    puts "response_body_create #{@response_body}"
+
     @bird.name = @response_body
+    @bird.datetime = Time.new
+
     @bird.save
   end
 
