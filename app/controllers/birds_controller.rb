@@ -74,7 +74,7 @@ class BirdsController < ApplicationController
       end
     end
 
-    url = 'http://127.0.0.1:5000/bird' || ENV['FLASK']
+    url = ENV['FLASK']
 
     puts "url_photo #{url}"
     
@@ -131,7 +131,7 @@ class BirdsController < ApplicationController
       end
     end
 
-    url = 'http://127.0.0.1:5000/bird' || ENV['FLASK']
+    url = ENV['FLASK']
 
     puts "url_create #{url}"
     
