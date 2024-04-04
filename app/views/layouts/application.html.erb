@@ -13,7 +13,9 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 
-    <meta name="mapbox-access-token" content="<%= ENV['MAPBOX'] %>">
+    <% unless ENV['MAPBOX'].nil? %>
+      <meta name="mapbox-access-token" content="<%= ENV['MAPBOX'] %>">
+    <% end %>
 
     <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
     <%= wicked_pdf_javascript_include_tag "number_pages" %>
