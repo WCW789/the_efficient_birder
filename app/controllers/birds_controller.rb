@@ -72,13 +72,13 @@ class BirdsController < ApplicationController
       end
     end
 
-    url = ENV['FLASK']
+    url = 'http://127.0.0.1:5000/bird' || ENV['FLASK']
     
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
 
     s3_object_url = uploader.upload()
-    data = { url: s3_object_url }.to_json
+    data = { url: s3_object_url }
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
     @response_body = @response.body
@@ -124,13 +124,13 @@ class BirdsController < ApplicationController
       end
     end
 
-    url = ENV['FLASK']
+    url = 'http://127.0.0.1:5000/bird' || ENV['FLASK']
     
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
     s3_object_url = "https://#{bucket_name}.s3.#{aws_region}.amazonaws.com/#{key}"
   
-    data = { url: s3_object_url }.to_json
+    data = { url: s3_object_url }
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
     @response_body = @response.body
