@@ -74,7 +74,7 @@ class BirdsController < ApplicationController
       end
     end
 
-    url = ENV['FLASK']
+    url = '127.0.0.1:5000/bird' || ENV['FLASK']
 
     puts "url_photo #{url}"
     
@@ -118,11 +118,17 @@ class BirdsController < ApplicationController
 
     @bird = current_user.bird.build(bird_params)
     puts "new bird create #{@bird}"
-    key = nil
+
+    key = @bird.image.last.key
+    response = BirdRecognitionService.new(key).call
+
+    puts "response_body_create #{response}"
+
+    @bird.name = response
+    @bird.datetime = Time.new
 
     respond_to do |format|
       if @bird.save
-        key = @bird.image.first.key
         format.html { redirect_to bird_url(@bird), notice: "Bird was successfully created." }
         format.json { render :show, status: :created, location: @bird }
       else
@@ -130,26 +136,6 @@ class BirdsController < ApplicationController
         format.json { render json: @bird.errors, status: :unprocessable_entity }
       end
     end
-
-    url = ENV['FLASK']
-
-    puts "url_create #{url}"
-    
-    bucket_name = ENV['S3_BUCKET']
-    aws_region = ENV['AWS_REGION']
-    s3_object_url = "https://#{bucket_name}.s3.#{aws_region}.amazonaws.com/#{key}"
-  
-    data = { url: s3_object_url }
-
-    @response = RestClient.post(url, data.to_json, content_type: :json)
-    @response_body = @response.body
-
-    puts "response_body_create #{@response_body}"
-
-    @bird.name = @response_body
-    @bird.datetime = Time.new
-
-    @bird.save
   end
 
   # PATCH/PUT /birds/1 or /birds/1.json
