@@ -1,30 +1,43 @@
-<h1>Birds</h1>
+<h1>Export</h1>
 
-<% image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg') %>
-<% uploader = ImageUploader.new(image_path, ENV['S3_BUCKET']) %>
-<% @s3_object_url = uploader.upload() %>
+<% puts "test #{@image_urls}" %>
 
-<div>
+<div id="birds">
   <% Bird.all.each do |bird| %>
-     <% if bird.image.attached? %>
-      <% bird.image.each do |img| %>
-      <%= wicked_pdf_image_tag(@s3_object_url) %>
-     <% end %>
+    <div id="<%= dom_id bird %>">
+
+    <% if bird.image.attached? %>
+      <% @image_urls[bird.id].each do |image_url| %>
+        <%= image_tag wicked_pdf_asset_base64(image_url) %>
+      <% end %>
+
     <p>
+      <strong>Name:</strong>
       <%= bird.name %>
     </p>
-    </p>
+
+    <p>
+      <strong>Datetime:</strong>
       <%= bird.datetime %>
     </p>
-    </p>
+
+    <p>
+      <strong>Latitude:</strong>
       <%= bird.latitude %>
     </p>
-    </p>
+
+    <p>
+      <strong>Longitude:</strong>
       <%= bird.longitude %>
     </p>
+
     <p>
+      <strong>Notes:</strong>
       <%= bird.notes %>
     </p>
-   <% end %>
+
+    <% end %>
+
+    </div>
   <% end %>
 </div>

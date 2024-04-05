@@ -14,6 +14,13 @@ class BirdsController < ApplicationController
 
   def export
     @birds = Bird.all
+    @image_urls = {}
+  
+    @birds.each do |b|
+      @image_urls[b.id] = b.image.map { |img| rails_blob_url(img) }
+    end
+
+    puts "image_urls #{@image_urls}"
 
     # render birds_export_path
 
