@@ -30,3 +30,64 @@ h2 {
   height: 15px;
   border-radius: 50%;
 }
+
+.drawer {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.drawer-content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-start;
+  padding: 1rem;
+}
+
+.drawer-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.drawer-side {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s linear;
+}
+
+.drawer.open .drawer-side {
+  transform: translateX(0);
+}
+
+.drawer.open .drawer-overlay {
+  visibility: visible;
+  opacity: 1;
+}
+
+.drawer-menu {
+  padding: 1rem;
+}
+
+.field {
+  margin-bottom: 1rem;
+}

@@ -1,13 +1,12 @@
-<div class="drawer drawer-end">
-  <input id="my-drawer-4" type="checkbox" class="drawer-toggle"/>
+<div class="drawer">
+  <input type="checkbox" id="drawer-toggle" class="drawer-toggle" />
   <div class="drawer-content">
-    <!-- Page content here -->
-    <label for="my-drawer-4" class="drawer-button btn btn-primary">Log In</label>
-  </div> 
+    <label for="drawer-toggle" class="drawer-button btn btn-primary">Log In</label>
+  </div>
   <div class="drawer-side">
-    <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-    <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-      
+    <label for="drawer-toggle" class="drawer-overlay"></label>
+    <div class="drawer-menu">
+
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="field">
           <%= f.label :email %><br />
@@ -30,7 +29,8 @@
           <%= f.submit "Log in" %>
         </div>
       <% end %>
-    </ul>
+
+    </div>
   </div>
 </div>
 
