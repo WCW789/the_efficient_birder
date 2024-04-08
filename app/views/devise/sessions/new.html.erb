@@ -1,7 +1,7 @@
 <div class="drawer">
   <input type="checkbox" id="drawer-toggle" class="drawer-toggle" />
   <div class="drawer-content">
-    <label for="drawer-toggle" class="drawer-button btn btn-primary">Log In</label>
+    <label for="drawer-toggle" class="drawer-button">Log In</label>
   </div>
   <div class="drawer-side">
     <label for="drawer-toggle" class="drawer-overlay"></label>
@@ -35,3 +35,21 @@
 </div>
 
 <%= render "devise/shared/links" %>
+
+<script>
+
+document.addEventListener('turbo:load', () => {
+  const drawerToggle = document.getElementById('drawer-toggle');
+  const drawer = document.querySelector('.drawer');
+  const drawerOverlay = document.querySelector('.drawer-overlay');
+
+  drawerToggle.addEventListener('change', () => {
+    drawer.classList.toggle('open');
+  });
+
+  drawerOverlay.addEventListener('click', () => {
+    drawer.classList.remove('open');
+  });
+});
+
+</script>
