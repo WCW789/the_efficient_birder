@@ -52,12 +52,12 @@ class BirdsController < ApplicationController
     longitude = params[:longitude]
 
     if uploaded_file.present?
-      File.open(Rails.root.join('tmp', 'uploads', uploaded_file.original_filename), 'wb') do |file|
+      File.open(Rails.root.join('public', 'uploads', uploaded_file.original_filename), 'wb') do |file|
         file.write(uploaded_file.read)
       end
     end
 
-    image_path = Rails.root.join('tmp', 'uploads', 'snapshot.jpeg')
+    image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg')
     puts "image_path photo #{image_path}"
     uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
     
