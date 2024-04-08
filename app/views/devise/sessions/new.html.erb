@@ -1,6 +1,12 @@
+<h1> The Efficient Birder </h1>
+
+  <div class="sign_up">
+    <%= link_to "Sign up", new_user_registration_path, class: "sign_up_button" %>
+  </div>
+
 <div class="drawer">
   <input type="checkbox" id="drawer-toggle" class="drawer-toggle" />
-  <div class="drawer-content">
+  <div class="drawer-content centered">
     <label for="drawer-toggle" class="drawer-button">Log In</label>
   </div>
   <div class="drawer-side">
@@ -17,6 +23,10 @@
           <%= f.label :password %><br />
           <%= f.password_field :password, autocomplete: "current-password" %>
         </div>
+       
+        <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+          <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+        <% end %>
 
         <% if devise_mapping.rememberable? %>
           <div class="field">
@@ -25,16 +35,14 @@
           </div>
         <% end %>
 
-        <div class="actions">
-          <%= f.submit "Submit" %>
+        <br>
+        <div class="actions centered">
+          <%= f.submit "Submit", class: "submit_button" %>
         </div>
       <% end %>
-
     </div>
   </div>
 </div>
-
-<%= render "devise/shared/links" %>
 
 <script>
 
