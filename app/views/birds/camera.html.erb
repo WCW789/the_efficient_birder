@@ -3,6 +3,9 @@
 
 <h2> Take Photo </h2>
 
+<label for="photo" class="captureButton">Take a Photo</label>
+<input type="file" id="photo" capture="environment" accept="image/*,video/*">  
+
 <%= form_with model: @bird, url: "/birds/photo", method: :post, local: true do |form| %>
 
   <%= form.hidden_field :blob_field, :value => "no blob yet" %>
@@ -23,9 +26,6 @@ const latitudeInput = document.getElementById('latitude')
 const longitudeInput = document.getElementById('longitude')
 
 const captureButton = document.getElementById('captureButton');
-
-<label for="photo" class="captureButton">Take a Photo</label>
-<input type="file" id="photo" capture="environment" accept="image/*,video/*">  
 
 captureButton.addEventListener('click', (event) => {
       event.preventDefault();
