@@ -30,7 +30,7 @@ const captureButton = document.getElementById('captureButton');
 captureButton.addEventListener('click', (event) => {
       event.preventDefault();
 
-      const imageUrl = canvas.toDataURL('image/jpeg');
+      const imageUrl = photo.toDataURL('image/jpeg');
       document.getElementById('blob_field').value = imageUrl;
 
       navigator.geolocation.getCurrentPosition(
@@ -77,6 +77,4 @@ captureButton.addEventListener('click', (event) => {
     });
 
  </script>
- </body>
-</html>
  
