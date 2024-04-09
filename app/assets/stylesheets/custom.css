@@ -132,6 +132,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: blanchedalmond;
 }
 
 .field {
@@ -159,6 +160,46 @@ a {
 
 .submit_button {
   background-color: pink;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  text-decoration: none;
+}
+
+.new_bird_button {
+  background-color: darkcyan;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  text-decoration: none;
+}
+
+.export_button {
+  background-color: lightgray;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  text-decoration: none;
+}
+
+.back_button {
+  background-color: pink;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  text-decoration: none;
+}
+
+.edit_button {
+  background-color: lightskyblue;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  text-decoration: none;
+}
+
+.delete_button {
+  background-color: maroon;
   color: white;
   padding: 0.5rem 1rem;
   border: none;

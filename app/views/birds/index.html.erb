@@ -1,11 +1,16 @@
 <%= render partial: "shared/navbar" %>
 
-<%= link_to "New bird", birds_camera_path %>
-<br><br>
-
 <h1>Birds</h1>
 
-<%= link_to "Export Birding Journal", birds_export_path(format: :pdf) %>
+<div class="actions centered">
+  <%= link_to "New bird", birds_camera_path, class: "new_bird_button" %>
+</div>
+<br>
+
+<div class="actions centered">
+  <%= link_to "Export Birding Journal", birds_export_path, class: "export_button" %>
+</div>
+<br>
 
 <div id="birds">
   <% @birds.each do |bird| %>

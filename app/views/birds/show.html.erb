@@ -1,8 +1,20 @@
+<div class="actions">
+  <%= link_to "Back to birds", birds_path, class: "back_button" %>
+</div>
+<br>
+<div class="actions">
+  <%= link_to "Add new bird", birds_photo_path, class: "new_bird_button" %>
+</div>
+<br><br>
+
 <%= render @bird %>
 
-<div>
-  <%= link_to "Add new bird", birds_photo_path %><br>
-  <%= link_to "Edit this bird", edit_bird_path(@bird) %><br>
-  <%= link_to "Back to birds", birds_path %><br>
-  <%= button_to "Destroy this bird", @bird, method: :delete %>
+
+<br>
+<div class="actions">
+  <%= link_to "Edit this bird", edit_bird_path(@bird), class: "edit_button" %>
+</div>
+<br>
+<div class="actions">
+  <%= link_to "Destroy this bird", @bird, method: :delete, class: "delete_button" %>
 </div>
