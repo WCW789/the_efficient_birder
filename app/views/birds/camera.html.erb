@@ -6,9 +6,9 @@
 <label for="photo" class="captureButton">Take a Photo</label>
 <input type="file" id="photo" capture="environment" accept="image/*,video/*">  
 
-<%= form_with model: @bird, url: "/birds/photo", method: :post, local: true do |form| %>
+<%= form_with model: @bird, url: "/birds/camera", method: :post, local: true do |form| %>
 
-  <%= form.hidden_field :blob_field, :value => "no blob yet" %>
+  <%= form.hidden_field :photo %>
   <%= form.hidden_field :user_id %>
   <%= form.hidden_field :name %>
   <%= form.hidden_field :datetime %>
@@ -22,59 +22,36 @@
 <% end %>
 
 <script>
+
 const latitudeInput = document.getElementById('latitude')
 const longitudeInput = document.getElementById('longitude')
-
 const captureButton = document.getElementById('captureButton');
 
 captureButton.addEventListener('click', (event) => {
-      event.preventDefault();
+  event.preventDefault();
 
-      const imageUrl = photo.toDataURL('image/jpeg');
-      document.getElementById('blob_field').value = imageUrl;
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
 
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
+      latitudeInput.value = latitude;
+      longitudeInput.value = longitude;
 
-          latitudeInput.value = latitude;
-          longitudeInput.value = longitude;
+      localStorage.setItem('latitude', latitudeInput.value);
+      localStorage.setItem('longitude', longitudeInput.value);
 
-          localStorage.setItem('latitude', latitudeInput.value);
-          localStorage.setItem('longitude', longitudeInput.value);
-
-          captureButton.form.submit();
-        },
-        (error) => {
-          console.log('Error getting location');
-        },
-        {
-          enableHighAccuracy: true,
-          maximumAge: 0, 
-        }
-      )
-      
-      canvas.toBlob(function (blob) {
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/birds/photo', true);
-
-        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        xhr.setRequestHeader('X-CSRF-Token', csrfToken);
-
-        const formData = new FormData();
-        formData.append('blobb', blob, 'snapshot.jpeg');
-
-        xhr.onload = function() { 
-          if (xhr.status === 200) {
-            console.log('Image upload successful');
-          } else {
-            console.error('Image upload failed');
-          }
-        }
-        xhr.send(formData);
-      }, 'image/jpeg');
-    });
+      captureButton.form.submit();
+    },
+    (error) => {
+      console.log('Error getting location');
+    },
+    {
+      enableHighAccuracy: true,
+      maximumAge: 0, 
+    }
+  )  
+});
 
  </script>
  
