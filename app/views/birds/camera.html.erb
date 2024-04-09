@@ -3,12 +3,9 @@
 
 <h2> Take Photo </h2>
 
-<label for="photo" class="captureButton">Take a Photo</label>
-<input type="file" id="photo" capture="environment" accept="image/*,video/*">  
+<%= form_with model: @bird, local: true do |form| %>
 
-<%= form_with model: @bird, url: "/birds/camera", method: :post, local: true do |form| %>
-
-  <%= form.hidden_field :photo %>
+  <%= form.file_field :image, capture: "environment", accept:"image/*,video/*" %>
   <%= form.hidden_field :user_id %>
   <%= form.hidden_field :name %>
   <%= form.hidden_field :datetime %>

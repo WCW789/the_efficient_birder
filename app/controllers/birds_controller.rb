@@ -113,30 +113,39 @@ class BirdsController < ApplicationController
     @bird.save
   end
 
-
-
-
   def take_camera
     render birds_camera_path
   end
 
   def save_camera
-
     unless current_user
       return redirect_to root_path, alert: "User not found"
     end
 
+    images = params[:image]
+    puts "Here are imagesz #{images}"
     latitude = params[:latitude]
     longitude = params[:longitude]
 
-      @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
+    if params[:image].present?
+      filename = "snapshot.jpeg"
+      puts "filenamez #{filename}"
+
+      File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
+        file.write(params[:image].read)
+      end
+    end
+
+    image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg')
+    puts "image_path photo #{image_path}"
+    uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
+
+    @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
 
     puts "new bird photo #{@bird}"
-    key = nil
 
     respond_to do |format|
       if @bird.save
-        key = "#{SecureRandom.uuid}"
         format.html { redirect_to bird_url(@bird), notice: "Bird was successfully uploaded." }
         format.json { render :show, status: :created, location: @bird }
       else
@@ -151,26 +160,27 @@ class BirdsController < ApplicationController
     
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
-    s3_object_url = "https://#{bucket_name}.s3.#{aws_region}.amazonaws.com/#{key}"
-    puts " s3_object_url create #{s3_object_url}"
-  
+
+    s3_object_url = uploader.upload()
+    puts " s3_object_url photo #{s3_object_url}"
     data = { url: s3_object_url }
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
-    puts " response photo #{@response}"
     @response_body = @response.body
 
     puts "response_body_photo #{@response_body}"
 
     @bird.name = @response_body
+    puts "@bird.name #{@bird.name}"
     @bird.datetime = Time.new
+    puts "@bird.datetime #{@bird.datetime}"
     @bird.latitude = latitude
+    puts "@bird.latitude #{@bird.latitude}"
     @bird.longitude = longitude
+    puts "@ird.longitude #{@bird.longitude}"
     
     @bird.save
   end
-
-
 
 
   # POST /birds or /birds.json
