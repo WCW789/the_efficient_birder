@@ -6,6 +6,8 @@
   <% Bird.all.each do |bird| %>
     <div id="<%= dom_id bird %>">
 
+    <%# <p>Test: <%= export %></p>
+
     <% if bird.image.attached? %>
       <% @image_urls[bird.id].each do |image_url| %>
         <%= image_tag wicked_pdf_asset_base64(image_url) %>

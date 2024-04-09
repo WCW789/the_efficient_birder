@@ -21,8 +21,8 @@ class BirdsController < ApplicationController
     end
 
     puts "image_urls #{@image_urls}"
-
     # render birds_export_path
+    # render locals: { export: export }
 
     respond_to do |format|
       format.html

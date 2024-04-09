@@ -21,9 +21,6 @@ gem 'wicked_pdf'
 # wkhtmltopdf
 gem 'wkhtmltopdf-binary'
 
-# wkhtmltopdf edge
-gem 'wkhtmltopdf-binary-edge', '~> 0.12.6.0'
-
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
