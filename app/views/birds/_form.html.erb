@@ -29,14 +29,12 @@
     <%= form.datetime_field :datetime %>
   </div>
 
-  <div>
-    <%= form.label :latitude, style: "display: block" %>
-    <%= form.text_field :latitude %>
-  </div>
+  <%= form.hidden_field :latitude %>
+  <%= form.hidden_field :longitude %>
 
   <div>
-    <%= form.label :longitude, style: "display: block" %>
-    <%= form.text_field :longitude %>
+    <%= form.label :address, style: "display: block" %>
+    <%= form.text_area :address, id: 'addressField', name: 'bird[address]' %>
   </div>
 
   <div>
@@ -45,6 +43,16 @@
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit 'Submit', id: 'submitButton' %>
   </div>
 <% end %>
+
+<script>
+  const submitButton = document.getElementById('submitButton');
+  
+  submitButton.addEventListener('click', function() {
+    const address = document.getElementById('addressField').value;
+    console.log("Address:", address);
+  });
+
+ </script>

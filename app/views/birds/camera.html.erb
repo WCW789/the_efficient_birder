@@ -3,7 +3,7 @@
 
 <h2> Take Photo </h2>
 
-<%= form_with model: @bird, local: true do |form| %>
+<%= form_with model: @bird, url: "/birds/camera", method: :post, local: true do |form| %>
 
   <%= form.file_field :image, capture: "environment", accept:"image/*,video/*" %>
   <%= form.hidden_field :user_id %>

@@ -226,6 +226,21 @@ class BirdsController < ApplicationController
     @bird.name = @response_body
     @bird.datetime = Time.new
 
+    address = params[:bird][:address]
+    puts "addressz #{address}"
+
+    url = "https://api.mapbox.com/geocoding/v5/mapbox.places/#{address}.json?access_token=#{ENV['MAPBOX']}"
+
+    response = Net::HTTP.get_response(url)
+
+    if response.is_a?(Net::HTTPSuccess)
+      data = JSON.parse(response.body)
+        puts "data_address #{data}" 
+      render json: data
+    else
+      render json: { error: 'There was a problem with the request' }
+    end
+
     @bird.save
   end
 
@@ -261,6 +276,6 @@ class BirdsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bird_params
-      params.require(:bird).permit(:user_id, :name, :datetime, :notes, :latitude, :longitude, image_attributes: [:image])
+      params.require(:bird).permit(:user_id, :name, :datetime, :notes, :latitude, :longitude, :image, image_attributes: [:image])
     end
 end
