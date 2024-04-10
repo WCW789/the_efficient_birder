@@ -1,5 +1,8 @@
 require 'rest-client'
 require 'json'
+require 'uri'
+require 'net/http'
+require 'cgi'
 
 class BirdsController < ApplicationController
   # include ApplicationHelper
@@ -226,19 +229,23 @@ class BirdsController < ApplicationController
     @bird.name = @response_body
     @bird.datetime = Time.new
 
-    address = params[:bird][:address]
-    puts "addressz #{address}"
+    address_params = params[:bird][:address]
+    address = CGI.escape(address_params)
 
-    url = "https://api.mapbox.com/geocoding/v5/mapbox.places/#{address}.json?access_token=#{ENV['MAPBOX']}"
+    url = URI("https://api.mapbox.com/geocoding/v5/mapbox.places/#{address}.json?access_token=#{ENV['MAPBOX']}")
 
-    response = Net::HTTP.get_response(url)
-
-    if response.is_a?(Net::HTTPSuccess)
-      data = JSON.parse(response.body)
-        puts "data_address #{data}" 
-      render json: data
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    request = Net::HTTP::Get.new(url)
+    response = http.request(request)
+    
+    if response.code == "200"
+      response_body = JSON.parse(response.body)
+      center = response_body["features"].first["center"]
+      @bird.latitude = center[0]
+      @bird.longitude = center[1]
     else
-      render json: { error: 'There was a problem with the request' }
+      puts "Error"
     end
 
     @bird.save
