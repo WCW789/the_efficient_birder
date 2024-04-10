@@ -5,11 +5,8 @@
 
 <%= form_with model: @bird, url: "/birds/camera", method: :post, local: true do |form| %>
 
-  <div class="customize_camera_button">
-    <%= form.file_field :image, class: 'camera_button', capture: "environment", accept:"image/*,video/*" %>
-    <label for="image">Take Photo</label>
-  </div>
-  <br>
+  <%= form.file_field :image, capture: "environment", accept:"image/*,video/*" %>
+  <br><br>
 
   <%= form.hidden_field :user_id %>
   <%= form.hidden_field :name %>
