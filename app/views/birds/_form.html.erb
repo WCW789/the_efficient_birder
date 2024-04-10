@@ -1,4 +1,4 @@
-<%= form_with model: @bird, local: true do |form| %>
+<%= form_with model: @bird, local: true, class: 'centered' do |form| %>
   <% if bird.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(bird.errors.count, "error") %> prohibited this bird from being saved:</h2>

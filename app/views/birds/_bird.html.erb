@@ -2,7 +2,9 @@
 
   <% if bird.image.attached? %>
     <% bird.image.each do |img| %>
+      <div class="centered">
         <%= image_tag img.variant(resize_to_limit: [224, nil]) %>
+      </div>
     <% end %>
 
   <p class="centered" >
@@ -25,10 +27,12 @@
     <%= bird.longitude %>
   </p>
 
-  <div id="map-<%= bird.id %>" class="map centered" 
-    data-latitude="<%= bird.latitude %>" 
-    data-longitude="<%= bird.longitude %>"
-    style='width: 300px; height: 200px;'>
+  <div class="centered">
+    <div id="map-<%= bird.id %>" class="map" 
+      data-latitude="<%= bird.latitude %>" 
+      data-longitude="<%= bird.longitude %>"
+      style='width: 300px; height: 200px;'>
+    </div>
   </div>
 
   <script>
@@ -55,12 +59,15 @@
 
   </script>
 
-  <p>
+  <p class="centered">
     <strong>Notes:</strong>
     <%= bird.notes %>
   </p>
 
-  <%= link_to "Show this bird", bird %>
+  <p class="centered">
+    <%= link_to "Show this bird", bird %>
+  </p>
+  <br>
 <% end %>
 
 </div>
