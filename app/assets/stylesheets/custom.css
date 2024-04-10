@@ -164,6 +164,7 @@ a {
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
+  font-family: Avenir;
 }
 
 .new_bird_button {
@@ -200,6 +201,19 @@ a {
 
 .delete_button {
   background-color: maroon;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  text-decoration: none;
+}
+
+.customize_camera_button .camera_button {
+  display: none;
+}
+
+.customize_camera_button label {
+  cursor: pointer;
+  background-color: teal;
   color: white;
   padding: 0.5rem 1rem;
   border: none;

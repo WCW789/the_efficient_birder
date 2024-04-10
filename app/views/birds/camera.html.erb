@@ -5,7 +5,12 @@
 
 <%= form_with model: @bird, url: "/birds/camera", method: :post, local: true do |form| %>
 
-  <%= form.file_field :image, capture: "environment", accept:"image/*,video/*" %>
+  <div class="customize_camera_button">
+    <%= form.file_field :image, class: 'camera_button', capture: "environment", accept:"image/*,video/*" %>
+    <label for="image">Take Photo</label>
+  </div>
+  <br>
+
   <%= form.hidden_field :user_id %>
   <%= form.hidden_field :name %>
   <%= form.hidden_field :datetime %>
@@ -14,7 +19,7 @@
   <%= form.hidden_field :notes %>
 
   <div>
-    <%= form.submit "Submit", id: "captureButton" %>
+    <%= form.submit "Submit", id: "captureButton", class: "submit_button" %>
   </div>
 <% end %>
 
@@ -50,5 +55,5 @@ captureButton.addEventListener('click', (event) => {
   )  
 });
 
- </script>
+</script>
  
