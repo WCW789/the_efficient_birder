@@ -5,27 +5,27 @@
         <%= image_tag img.variant(resize_to_limit: [224, nil]) %>
     <% end %>
 
-  <p>
-    <strong>Name:</strong>
+  <p class="centered" >
+    <strong>Name: &nbsp; </strong>
     <%= bird.name %>
   </p>
 
-  <p>
-    <strong>Datetime:</strong>
+  <p class="centered" >
+    <strong>Datetime: &nbsp; </strong>
     <%= bird.datetime %>
   </p>
 
-  <p>
-    <strong>Latitude:</strong>
+  <p class="centered" >
+    <strong>Latitude: &nbsp; </strong>
     <%= bird.latitude %>
   </p>
 
-  <p>
-    <strong>Longitude:</strong>
+  <p class="centered" >
+    <strong>Longitude: &nbsp; </strong>
     <%= bird.longitude %>
   </p>
 
-  <div id="map-<%= bird.id %>" class="map" 
+  <div id="map-<%= bird.id %>" class="map centered" 
     data-latitude="<%= bird.latitude %>" 
     data-longitude="<%= bird.longitude %>"
     style='width: 300px; height: 200px;'>
