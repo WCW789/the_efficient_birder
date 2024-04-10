@@ -242,8 +242,10 @@ class BirdsController < ApplicationController
     if response.code == "200"
       response_body = JSON.parse(response.body)
       center = response_body["features"].first["center"]
-      @bird.latitude = center[0]
-      @bird.longitude = center[1]
+      @bird.latitude = center[1]
+      puts "@bird.latitude #{@bird.latitude}"
+      @bird.longitude = center[0]
+      puts "@bird.longitude #{@bird.longitude}"
     else
       puts "Error"
     end
