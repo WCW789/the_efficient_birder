@@ -61,7 +61,6 @@ class BirdsController < ApplicationController
     end
 
     image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg')
-    puts "image_path photo #{image_path}"
     uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
     
     @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
@@ -79,18 +78,13 @@ class BirdsController < ApplicationController
     end
 
     url = ENV['FLASK']
-
-    puts "url_photo #{url}"
-    
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
 
     s3_object_url = uploader.upload()
-    puts " s3_object_url photo #{s3_object_url}"
     data = { url: s3_object_url }
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
-    puts " response photo #{@response}"
     @response_body = @response.body
 
     puts "response_body_photo #{@response_body}"
@@ -126,13 +120,11 @@ class BirdsController < ApplicationController
     end
 
     images = params[:image]
-    puts "Here are imagesz #{images}"
     latitude = params[:latitude]
     longitude = params[:longitude]
 
     if params[:image].present?
       filename = "snapshot.jpeg"
-      puts "filenamez #{filename}"
 
       File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
         file.write(params[:image].read)
@@ -140,12 +132,11 @@ class BirdsController < ApplicationController
     end
 
     image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg')
-    puts "image_path photo #{image_path}"
     uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
 
     @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
 
-    puts "new bird photo #{@bird}"
+    puts "new bird camera #{@bird}"
 
     respond_to do |format|
       if @bird.save
@@ -158,29 +149,31 @@ class BirdsController < ApplicationController
     end
 
     url = ENV['FLASK']
-
-    puts "url_photo #{url}"
-    
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
 
     s3_object_url = uploader.upload()
-    puts " s3_object_url photo #{s3_object_url}"
     data = { url: s3_object_url }
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
     @response_body = @response.body
-
-    puts "response_body_photo #{@response_body}"
+    
+    puts "response_body_camera #{@response_body}"
 
     @bird.name = @response_body
-    puts "@bird.name #{@bird.name}"
     @bird.datetime = Time.new
-    puts "@bird.datetime #{@bird.datetime}"
+
+    content_type = params[:image].content_type
+
+    image_blob = ActiveStorage::Blob.create_and_upload!(
+      io: params[:image].open,
+      filename: filename,
+      content_type: content_type
+    )
+
+    @bird.image.attach(image_blob)
     @bird.latitude = latitude
-    puts "@bird.latitude #{@bird.latitude}"
     @bird.longitude = longitude
-    puts "@ird.longitude #{@bird.longitude}"
     
     @bird.save
   end
@@ -191,8 +184,6 @@ class BirdsController < ApplicationController
     unless current_user
       return redirect_to root_path, alert: "User not found"
     end
-
-    puts "bird_params #{bird_params}"
 
     @bird = current_user.bird.build(bird_params)
     puts "new bird create #{@bird}"
@@ -210,18 +201,13 @@ class BirdsController < ApplicationController
     end
 
     url = ENV['FLASK']
-
-    puts "url_create #{url}"
-    
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
     s3_object_url = "https://#{bucket_name}.s3.#{aws_region}.amazonaws.com/#{key}"
-    puts " s3_object_url create #{s3_object_url}"
   
     data = { url: s3_object_url }
 
     @response = RestClient.post(url, data.to_json, content_type: :json)
-    puts " response create #{@response}"
     @response_body = @response.body
 
     puts "response_body_create #{@response_body}"
