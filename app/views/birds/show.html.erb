@@ -11,10 +11,10 @@
 
 
 <br>
-<div class="actions">
-  <%= link_to "Edit this bird", edit_bird_path(@bird), class: "edit_button" %>
+<div class="actions centered">
+  <%= link_to "Edit this entry", edit_bird_path(@bird), class: "edit_button" %>
 </div>
 <br>
-<div class="actions">
-  <%= link_to "Destroy this bird", @bird, method: :delete, class: "delete_button" %>
+<div class="actions centered">
+  <%= button_to "Delete this entry", @bird, class: "delete_button", method: :delete %>
 </div>

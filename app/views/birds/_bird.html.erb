@@ -7,67 +7,67 @@
       </div>
     <% end %>
 
-  <p class="centered" >
-    <strong>Name: &nbsp; </strong>
-    <%= bird.name %>
-  </p>
+    <p class="centered" >
+      <strong>Name: &nbsp; </strong>
+      <%= bird.name %>
+    </p>
 
-  <p class="centered" >
-    <strong>Datetime: &nbsp; </strong>
-    <%= bird.datetime %>
-  </p>
+    <p class="centered" >
+      <strong>Datetime: &nbsp; </strong>
+      <%= bird.datetime %>
+    </p>
 
-  <p class="centered" >
-    <strong>Latitude: &nbsp; </strong>
-    <%= bird.latitude %>
-  </p>
+    <p class="centered" >
+      <strong>Latitude: &nbsp; </strong>
+      <%= bird.latitude %>
+    </p>
 
-  <p class="centered" >
-    <strong>Longitude: &nbsp; </strong>
-    <%= bird.longitude %>
-  </p>
+    <p class="centered" >
+      <strong>Longitude: &nbsp; </strong>
+      <%= bird.longitude %>
+    </p>
 
-  <div class="centered">
-    <div id="map-<%= bird.id %>" class="map" 
-      data-latitude="<%= bird.latitude %>" 
-      data-longitude="<%= bird.longitude %>"
-      style='width: 300px; height: 200px;'>
+    <div class="centered">
+      <div id="map-<%= bird.id %>" class="map" 
+        data-latitude="<%= bird.latitude %>" 
+        data-longitude="<%= bird.longitude %>"
+        style='width: 300px; height: 200px;'>
+      </div>
     </div>
-  </div>
 
-  <script>
+    <p class="centered">
+      <strong>Notes: &nbsp; </strong>
+      <%= bird.notes %>
+    </p>
 
-  mapboxgl.accessToken = document.querySelector('meta[name="mapbox-access-token"]').content;
-
-  var mapContainers = document.querySelectorAll('.map');
-
-  mapContainers.forEach(function(mapContainer) {
-      var latitude = parseFloat(mapContainer.dataset.latitude);
-      var longitude = parseFloat(mapContainer.dataset.longitude);
-
-      if (!isNaN(latitude) && !isNaN(longitude)) {
-        var map = new mapboxgl.Map({
-          container: mapContainer.id,
-          style: 'mapbox://styles/mapbox/streets-v11', // 'mapbox://styles/mapbox/light-v11'
-          center: [longitude, latitude],
-          zoom: 15
-        });
-
-      new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
-      } 
-    });
-
-  </script>
-
-  <p class="centered">
-    <strong>Notes:</strong>
-    <%= bird.notes %>
-  </p>
-
-  <p class="centered">
-    <%= link_to "Show this bird", bird %>
-  </p>
-  <br>
-<% end %>
+    <p class="centered">
+      <%= link_to "Show this bird", bird %>
+    </p>
+    <br>
+  <% end %>
 
 </div>
+
+<script>
+
+mapboxgl.accessToken = document.querySelector('meta[name="mapbox-access-token"]').content;
+
+var mapContainers = document.querySelectorAll('.map');
+
+mapContainers.forEach(function(mapContainer) {
+    var latitude = parseFloat(mapContainer.dataset.latitude);
+    var longitude = parseFloat(mapContainer.dataset.longitude);
+
+    if (!isNaN(latitude) && !isNaN(longitude)) {
+      var map = new mapboxgl.Map({
+        container: mapContainer.id,
+        style: 'mapbox://styles/mapbox/streets-v11', // 'mapbox://styles/mapbox/light-v11'
+        center: [longitude, latitude],
+        zoom: 15
+      });
+
+    new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
+    } 
+  });
+
+</script>

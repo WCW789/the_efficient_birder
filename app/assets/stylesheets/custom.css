@@ -1,5 +1,6 @@
 body {
-  background-color: blanchedalmond;
+  background: url('background.png');
+  background-size: cover;
   margin: 10px;
   padding: 10px;
   font-family: Avenir;
@@ -132,7 +133,6 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: blanchedalmond;
 }
 
 .field {
@@ -205,6 +205,7 @@ a {
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
+  font-family: Avenir;
 }
 
 .customize_camera_button .camera_button {
@@ -218,4 +219,8 @@ a {
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
+}
+
+.background_color {
+  background-color: blanchedalmond;
 }

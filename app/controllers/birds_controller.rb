@@ -270,6 +270,6 @@ class BirdsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bird_params
-      params.require(:bird).permit(:user_id, :name, :datetime, :notes, :latitude, :longitude, :image, image_attributes: [:image])
+      params.require(:bird).permit(:user_id, :name, :datetime, :notes, :latitude, :longitude, image_attributes: [:image])
     end
 end
