@@ -12,17 +12,27 @@ class BirdsController < ApplicationController
     @birds = Bird.all
   end
 
-  def export
+  def json_pdf
+    bucket_name = ENV['S3_BUCKET']
+    aws_region = ENV['AWS_REGION']
     @birds = Bird.all
     @image_urls = {}
-  
+
     @birds.each do |b|
-      @image_urls[b.id] = b.image.map { |img| rails_blob_url(img) }
+      b.image.each_with_index do |img, index|
+        @image_urls[b.id] ||= []
+        @image_urls[b.id] << "https://#{bucket_name}.s3.#{aws_region}.amazonaws.com/#{img.blob.key}"
+      end
     end
 
-    puts "image_urls #{@image_urls}"
+    render json: @image_urls
+    puts "@image_urls #{@image_urls}"
+  end
+
+  def export
+    @birds = Bird.all
+
     # render birds_export_path
-    # render locals: { export: export }
 
     respond_to do |format|
       format.html

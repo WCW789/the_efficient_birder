@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get("/birds/photo", { :controller => "birds", :action => "take_photo" })
   post("/birds/photo", { :controller => "birds", :action => "save_photo" })
   get("/birds/export", { :controller => "birds", :action => "export" })
+  get "/birds/json_pdf", to: "birds#json_pdf", as: :json_pdf
   get("/uploads/:filename", { :controller => "uploads", :action => "show", constraints: { filename: /[^\/]+/ } })
   resources :birds
   resources :images
