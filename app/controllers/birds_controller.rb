@@ -64,8 +64,6 @@ class BirdsController < ApplicationController
     uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
     
     @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
-
-    puts "new bird photo #{@bird}"
     
     respond_to do |format|
       if @bird.save
@@ -136,8 +134,6 @@ class BirdsController < ApplicationController
 
     @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
 
-    puts "new bird camera #{@bird}"
-
     respond_to do |format|
       if @bird.save
         format.html { redirect_to bird_url(@bird), notice: "Bird was successfully uploaded." }
@@ -186,7 +182,6 @@ class BirdsController < ApplicationController
     end
 
     @bird = current_user.bird.build(bird_params)
-    puts "new bird create #{@bird}"
     key = nil
 
     respond_to do |format|
