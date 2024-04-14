@@ -11,12 +11,12 @@ body {
   font-family: Wawati SC
 }
 
-/* .logo_image {
-  background-image: asset-url('logo1.png');
+.logo_image {
+  background-image: url('/assets/logo1.png');
   height: 50px;
   width: 80%;
   padding: 10px;
-} */
+}
 
 nav {
   background-color: #F4F6F7;
