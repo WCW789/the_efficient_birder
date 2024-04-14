@@ -16,7 +16,9 @@
   <video id="video" autoplay height=100></video>
 </div>
 <br>
-<canvas id="canvas" height=100 width=125></canvas>
+<div class="centered">
+  <canvas id="canvas" height=100 width=125></canvas>
+</div>
 
 <%= form_with model: @bird, url: "/birds/photo", method: :post, local: true do |form| %>
 
