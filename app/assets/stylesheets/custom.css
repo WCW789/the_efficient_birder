@@ -1,5 +1,5 @@
 body {
-  background: url('background1.png');
+  /* background: url('background1.png'); */
   background-size: cover;
   margin: 10px;
   padding: 10px;
@@ -11,12 +11,12 @@ body {
   font-family: Wawati SC
 }
 
-.logo_image {
+/* .logo_image {
   background-image: asset-url('logo1.png');
   height: 50px;
   width: 80%;
   padding: 10px;
-}
+} */
 
 nav {
   background-color: #F4F6F7;
