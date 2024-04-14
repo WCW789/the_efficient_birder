@@ -1,7 +1,7 @@
-<div class="card">
-  <div id="<%= dom_id bird %>">
+<% if bird.image.attached? %>
+  <div class="card">
+    <div id="<%= dom_id bird %>">
 
-    <% if bird.image.attached? %>
       <% bird.image.each do |img| %>
         <div class="centered">
           <%= image_tag img.variant(resize_to_limit: [224, nil]), class: 'shadowing' %>
@@ -44,11 +44,11 @@
       <p class="centered">
         <%= link_to "Show this bird", bird %>
       </p>
-      <br>
-    <% end %>
 
+      <br>
+    </div>
   </div>
-</div>
+<% end %>
 <br>
 
 <script>

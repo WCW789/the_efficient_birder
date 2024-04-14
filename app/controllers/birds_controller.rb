@@ -3,6 +3,7 @@ require 'json'
 require 'uri'
 require 'net/http'
 require 'cgi'
+require 'active_support/all'
 
 class BirdsController < ApplicationController
   # include ApplicationHelper
@@ -88,7 +89,12 @@ class BirdsController < ApplicationController
     puts "response_body_photo #{@response_body}"
 
     @bird.name = @response_body
-    @bird.datetime = Time.new
+
+    utc_datetime_string = Time.new.to_s
+    utc_datetime = DateTime.strptime(utc_datetime_string, "%Y-%m-%d %H:%M:%S %z")
+    local_datetime = utc_datetime.in_time_zone(ActiveSupport::TimeZone['Central Time (US & Canada)'])
+    formatted_datetime = local_datetime.strftime("%B-%-d-%Y %H:%M")
+    @bird.datetime = formatted_datetime
 
     base64_data = blob_field.split(',')[1] 
     binary_data = Base64.strict_decode64(base64_data)
@@ -208,7 +214,11 @@ class BirdsController < ApplicationController
     puts "response_body_create #{@response_body}"
 
     @bird.name = @response_body
-    @bird.datetime = Time.new
+
+    datetime_string = @bird.datetime.to_s
+    datetime = DateTime.strptime(datetime_string, "%Y-%m-%d %H:%M:%S %z")
+    formatted_datetime = datetime.strftime("%B-%-d-%Y %H:%M")
+    @bird.datetime = formatted_datetime 
 
     address_params = params[:bird][:address]
     address = CGI.escape(address_params)
