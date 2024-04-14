@@ -1,9 +1,12 @@
-<div class="actions">
-  <%= link_to "Back to birds", birds_path, class: "back_button" %>
+<%= render partial: "shared/navbar" %>
+
+<br><br><br><br><br>
+<div class="actions centered">
+  <%= link_to "Add New Bird", birds_photo_path, class: "new_bird_button" %>
 </div>
 <br>
-<div class="actions">
-  <%= link_to "Add new bird", birds_camera_path, class: "new_bird_button" %>
+<div class="actions centered">
+  <%= link_to "Back To Home", birds_path, class: "back_button" %>
 </div>
 <br><br>
 

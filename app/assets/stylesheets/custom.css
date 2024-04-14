@@ -3,14 +3,39 @@ body {
   background-size: cover;
   margin: 10px;
   padding: 10px;
-  font-family: Avenir;
+  font-family: Gill Sans, sans-serif;
+}
+
+.app_name {
+  color: #515A5A;
+  font-family: Wawati SC
+}
+
+.logo_image {
+  background-image: asset-url('logo.png');
+  height: 50px;
+  width: 80%;
+  padding: 10px;
+}
+
+nav {
+  background-color: #F4F6F7;
+  height: 75px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 h1 {
   font-size: xxx-large;
   font-weight: bolder;
-  color: #703e3e;
-  padding-top: 15px;
+  color: #F4F6F7;
+  padding-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,13 +65,35 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-right: 1.25rem;
 }
 
-.centered_no_padding {
+.centered_with_padding {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-right: 1.25rem;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  padding-right: 15px;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav li {
+  flex: 1;
 }
 
 .padding-75 {
@@ -58,8 +105,12 @@ img, video {
   max-width: 100%;
 }
 
+.shadowing {
+  box-shadow: 0 7.5px 15px 0 rgba(0, 0, 0, 0.8);
+}
+
 a {
-  color: lightseagreen;
+  color: #515A5A;
 }
 
 #map {
@@ -156,10 +207,11 @@ a {
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
+  border-radius: 22px 22px 22px 22px;
 }
 
 .submit_button {
-  background-color: pink;
+  background-color: #ABEBC6;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
@@ -168,35 +220,51 @@ a {
 }
 
 .new_bird_button {
-  background-color: brown;
-  color: white;
+  background-color: #E9EB78;
+  color: black;
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
+  font-size: 35px;
+  font-weight: bold;
+  border-radius: 22px 22px 22px 22px;
+}
+
+.manually_add_button {
+  background-color: #E9EB78;
+  color: black;
+  padding: 0.5rem 1rem;
+  border: none;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 22px 22px 22px 22px;
 }
 
 .export_button {
-  background-color: lightgray;
+  background-color: #FA7A34;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
+  border-radius: 22px 22px 22px 22px;
 }
 
 .back_button {
-  background-color: pink;
+  background-color: #FA7A34;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
+  border-radius: 22px 22px 22px 22px;
 }
 
 .edit_button {
-  background-color: lightskyblue;
+  background-color: #FA7A34;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
+  border-radius: 22px 22px 22px 22px;
 }
 
 .delete_button {
@@ -206,6 +274,7 @@ a {
   border: none;
   text-decoration: none;
   font-family: Avenir;
+  border-radius: 22px 22px 22px 22px;
 }
 
 .customize_camera_button .camera_button {
@@ -223,4 +292,24 @@ a {
 
 .background_color {
   background-color: blanchedalmond;
+}
+
+.card {
+  background-color: #D6DBDF;
+  border-radius: 4px;
+  border: 5px solid #D6DBDF;
+  display: flex;
+  justify-content: center;
+  width: 30%;
+  margin: 0 auto;
+  padding-top: 45px;
+  padding-right: 10px;
+  padding-left: 10px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 450px) {
+  .card {
+    width: 90%;
+  }
 }

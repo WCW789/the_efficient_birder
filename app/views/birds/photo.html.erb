@@ -1,6 +1,20 @@
+<%= render partial: "shared/navbar" %>
+<br><br><br><br><br>
+
+<div class="centered">
+  <%= link_to "Manually Add Bird Entry", new_bird_path, class: "manually_add_button" %>
+</div>
+<br>
+
+<div class="centered">
+  <%= link_to "Back To Home", birds_path, class: "back_button" %>
+</div>
+
 <h1> Take Photo </h1>
 
-<video id="video" autoplay height=100></video>
+<div class="centered">
+  <video id="video" autoplay height=100></video>
+</div>
 <br>
 <canvas id="canvas" height=100 width=125></canvas>
 
@@ -14,18 +28,11 @@
   <%= form.hidden_field :longitude, id: 'longitude' %>
   <%= form.hidden_field :notes %>
 
-  <div>
+  <div class="centered">
     <%= form.submit "Submit", id: "captureButton" %>
   </div>
 <% end %>
-
 <br>
-<div>
-  <%= link_to "Back to birds", birds_path %>
-</div>
-
-<br>
-<%= link_to "Manually Add Bird Entry", new_bird_path %>
 
 <script>
 const latitudeInput = document.getElementById('latitude')

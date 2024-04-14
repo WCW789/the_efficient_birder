@@ -1,9 +1,10 @@
-<h1>Upload an Image</h1>
-
-<%= render "form", bird: @bird %>
-
-<br>
+<%= render partial: "shared/navbar" %>
+<br><br><br><br><br>
 
 <div class="centered">
-  <%= link_to "Back to birds", birds_path %>
+  <%= link_to "Back To Home", birds_path, class: "back_button" %>
 </div>
+
+<h1>Upload An Image</h1>
+
+<%= render "form", bird: @bird %>
