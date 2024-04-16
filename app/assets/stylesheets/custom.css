@@ -6,6 +6,27 @@ body {
   font-family: Gill Sans, sans-serif;
 }
 
+.flex-container_left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 50%;
+}
+
+.flex-container_right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row-reverse;
+  width: 100%;
+}
+
+.flex-item {
+  text-align: center;
+}
+
 .app_name {
   color: #515A5A;
   font-family: Wawati SC
@@ -73,6 +94,10 @@ h3 {
   justify-content: center;
   align-items: center;
   padding-right: 1.25rem;
+}
+
+.text_align_center {
+  text-align: center;
 }
 
 .right {
@@ -183,7 +208,6 @@ a {
 }
 
 .drawer-menu {
-  padding: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
