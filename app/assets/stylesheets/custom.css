@@ -142,11 +142,13 @@ a {
 }
 
 .drawer-button {
-  background-color: lightseagreen;
-  color: white;
+  background-color: #E9EB78;
+  color: black;
+  font-size: 25px;
   padding: 0.5rem 1rem;
   border: none;
   cursor: pointer;
+  border-radius: 22px 22px 22px 22px;
 }
 
 .drawer-side {
@@ -203,7 +205,8 @@ a {
 }
 
 .sign_up_button {
-  background-color: lightskyblue;
+  background-color: #FA7A34;
+  font-size: 25px;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
@@ -212,12 +215,13 @@ a {
 }
 
 .submit_button {
-  background-color: #ABEBC6;
+  background-color: #515A5A;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
   font-family: Avenir;
+  border-radius: 22px 22px 22px 22px;
 }
 
 .new_bird_button {

@@ -113,6 +113,7 @@ group :development do
   gem "rufo"
   gem "specs_to_readme"
   gem "web_git"
+  gem "letter_opener"
 end
 
 group :development, :test do
