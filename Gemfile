@@ -24,6 +24,9 @@ gem 'wkhtmltopdf-binary'
 # Adding in pagination
 gem 'kaminari'
 
+# Adding meta tags
+gem "meta-tags"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 
