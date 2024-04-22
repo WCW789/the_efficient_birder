@@ -22,5 +22,5 @@
 #
 class Bird < ApplicationRecord
   belongs_to :user
-  include AddingImages
+  include Imageable
 end

@@ -1,4 +1,4 @@
-module AddingImages
+module Imageable
   extend ActiveSupport::Concern
 
   included do
