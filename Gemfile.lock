@@ -494,6 +494,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  kaminari
   letter_opener
   pg (~> 1.1)
   pry-rails

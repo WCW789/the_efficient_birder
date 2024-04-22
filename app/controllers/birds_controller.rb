@@ -13,7 +13,7 @@ class BirdsController < ApplicationController
 
   # GET /birds or /birds.json
   def index
-    @birds = Bird.all
+    @birds = Bird.page(params[:page]).per(5)
   end
 
   def export
@@ -63,18 +63,6 @@ class BirdsController < ApplicationController
 
     image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg')
     uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
-    
-    @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
-    
-    respond_to do |format|
-      if @bird.save
-        format.html { redirect_to bird_url(@bird), notice: "Bird was successfully uploaded." }
-        format.json { render :show, status: :created, location: @bird }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @bird.errors, status: :unprocessable_entity }
-      end
-    end
 
     url = ENV['FLASK']
     bucket_name = ENV['S3_BUCKET']
@@ -87,6 +75,8 @@ class BirdsController < ApplicationController
     @response_body = @response.body
 
     puts "response_body_photo #{@response_body}"
+
+    @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
 
     @bird.name = @response_body
 
@@ -112,6 +102,16 @@ class BirdsController < ApplicationController
     @bird.longitude = longitude
     
     @bird.save
+    
+    respond_to do |format|
+      if @bird.save
+        format.html { redirect_to bird_url(@bird), notice: "Bird was successfully uploaded." }
+        format.json { render :show, status: :created, location: @bird }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @bird.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def take_camera

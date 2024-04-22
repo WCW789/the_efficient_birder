@@ -9,7 +9,6 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
 
-    <%# <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
 
@@ -20,6 +19,9 @@
   </head>
 
   <body>
+    <%= render partial: "shared/navbar" %>
+    <br><br><br><br><br>
+
     <% if notice.present? %>
       <p class="notice"><%= notice %></p>
     <% end %>

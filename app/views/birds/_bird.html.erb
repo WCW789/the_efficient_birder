@@ -1,4 +1,4 @@
-<% if bird.image.attached? %>
+<%# <% if bird.image.attached? %>
   <div class="card">
     <div id="<%= dom_id bird %>">
 
@@ -40,15 +40,10 @@
         <strong>Notes: &nbsp; </strong>
         <%= bird.notes %>
       </p>
-
-      <p class="centered">
-        <%= link_to "Show this bird", bird %>
-      </p>
-
       <br>
     </div>
   </div>
-<% end %>
+<%# <% end %>
 <br>
 
 <script>
