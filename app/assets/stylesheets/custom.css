@@ -40,7 +40,7 @@ body {
   margin-left: 10px;
 }
 
-nav {
+.nav {
   background-color: #F4F6F7;
   height: 75px;
   position: fixed;
@@ -51,6 +51,12 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.pagination {
+  width: 25%;
+  display: flex;
+  justify-content: space-around;
 }
 
 h1 {
