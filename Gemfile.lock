@@ -503,6 +503,7 @@ DEPENDENCIES
   rails-erd
   rails_admin (~> 3.1)
   rails_db
+  ransack
   redis (~> 4.0)
   rest-client (~> 2.1)
   rspec-html-matchers

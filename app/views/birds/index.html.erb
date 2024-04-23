@@ -10,6 +10,23 @@
 </div>
 <br>
 
+<br><br>
+<div class='centered'>
+  <%= search_form_for @q do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name_cont %>
+
+    <%= f.submit "Search" %>
+  <% end %>
+</div>
+<br>
+
+<div class='centered'>
+  <p> Sort by </p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= sort_link(@q, :datetime, "Datetime") %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <%= sort_link(@q, :name, "Name") %>
+</div>
+
 <div id="birds">
   <% @birds.each do |bird| %>
     <%= render bird %>
