@@ -13,7 +13,10 @@ class BirdsController < ApplicationController
 
   # GET /birds or /birds.json
   def index
-    @birds = Bird.page(params[:page]).per(5)
+    @q = Bird.ransack(params[:q])
+    @sorts = @q.result(distinct: true)
+    @sorted_entries = @sorts.order(datetime: :desc, name: :asc)
+    @birds = @sorted_entries.page(params[:page]).per(5)
   end
 
   def export

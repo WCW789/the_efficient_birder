@@ -23,4 +23,8 @@
 class Bird < ApplicationRecord
   belongs_to :user
   include Imageable
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["datetime", "name"]
+  end
 end

@@ -24,6 +24,9 @@ gem 'wkhtmltopdf-binary'
 # Adding in pagination
 gem 'kaminari'
 
+# Adding in sorting
+gem 'ransack'
+
 # Adding meta tags
 gem "meta-tags"
 
