@@ -236,24 +236,12 @@ class BirdsController < ApplicationController
     @bird.datetime = formatted_datetime 
 
     address_params = params[:bird][:address]
-    address = CGI.escape(address_params)
 
-    url = URI("https://api.mapbox.com/geocoding/v5/mapbox.places/#{address}.json?access_token=#{ENV['MAPBOX']}")
+    geolocator = Geolocation.new(address_params)
+    mapping = geolocator.mapping()
 
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    request = Net::HTTP::Get.new(url)
-    response = http.request(request)
-    
-    if response.code == "200"
-      response_body = JSON.parse(response.body)
-      center = response_body["features"].first["center"]
-      @bird.longitude = center[0]
-      @bird.latitude = center[1]
-    else
-      puts "Error"
-    end
-
+    @bird.longitude = mapping[0]
+    @bird.latitude = mapping[1]
     @bird.notes = "#{@bird.notes} (Bird seen at #{address_params})"
     @bird.save
   end
