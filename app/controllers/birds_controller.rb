@@ -13,7 +13,7 @@ class BirdsController < ApplicationController
 
   # GET /birds or /birds.json
   def index
-    @birds = current_user.bird
+    @birds = current_user.bird.includes(:image_attachments)
 
     @q = @birds.ransack(params[:q])
     @sorts = @q.result(distinct: true)

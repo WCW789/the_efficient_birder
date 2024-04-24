@@ -126,6 +126,7 @@ group :development do
   gem "specs_to_readme"
   gem "web_git"
   gem "letter_opener"
+  gem 'bullet'
 end
 
 group :development, :test do
