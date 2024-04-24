@@ -46,26 +46,4 @@
 <%# <% end %>
 <br>
 
-<script>
-
-mapboxgl.accessToken = document.querySelector('meta[name="mapbox-access-token"]').content;
-
-var mapContainers = document.querySelectorAll('.map');
-
-mapContainers.forEach(function(mapContainer) {
-    var latitude = parseFloat(mapContainer.dataset.latitude);
-    var longitude = parseFloat(mapContainer.dataset.longitude);
-
-    if (!isNaN(latitude) && !isNaN(longitude)) {
-      var map = new mapboxgl.Map({
-        container: mapContainer.id,
-        style: 'mapbox://styles/mapbox/streets-v11', // 'mapbox://styles/mapbox/light-v11'
-        center: [longitude, latitude],
-        zoom: 15
-      });
-
-    new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
-    } 
-  });
-
-</script>
+<%= render partial: 'mapbox' %>
