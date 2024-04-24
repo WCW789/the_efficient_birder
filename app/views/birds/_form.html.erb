@@ -13,31 +13,43 @@
 
   <div>
     <%= form.fields_for :image do |image_upload| %>
-      <%= image_upload.file_field :image %>
+      Upload Image:
+      <span class="required">*</span><br>
+      <%= image_upload.file_field :image, required: true %>
     <% end %>
   <div>
 
   <%= form.hidden_field :user_id %>
   <%= form.hidden_field :name %>
 
+  <br>
   <div>
-    <%= form.label :datetime, style: "display: block" %>
-    <%= form.datetime_field :datetime %>
+    <%= form.label :datetime, style: "display: block" do %>
+      Date and Time:
+      <span class="required">*</span>
+    <% end %>
+    <%= form.datetime_field :datetime, required: true  %>
   </div>
 
   <%= form.hidden_field :latitude %>
   <%= form.hidden_field :longitude %>
 
+  <br>
   <div>
-    <%= form.label :address, style: "display: block" %>
-    <%= form.text_area :address, id: 'addressField', name: 'bird[address]' %>
+    <%= form.label :address, style: "display: block" do %>
+      Address:
+      <span class="required">*</span>
+    <% end %>
+    <%= form.text_area :address, id: 'addressField', name: 'bird[address]', required: true  %>
   </div>
 
+  <br>
   <div>
     <%= form.label :notes, style: "display: block" %>
     <%= form.text_area :notes %>
   </div>
 
+  <br>
   <div>
     <%= form.submit 'Submit', id: 'submitButton' %>
   </div>

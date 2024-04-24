@@ -13,7 +13,9 @@ class BirdsController < ApplicationController
 
   # GET /birds or /birds.json
   def index
-    @q = Bird.ransack(params[:q])
+    @birds = current_user.bird
+
+    @q = @birds.ransack(params[:q])
     @sorts = @q.result(distinct: true)
     @sorted_entries = @sorts.order(datetime: :desc, name: :asc)
     @birds = @sorted_entries.page(params[:page]).per(5)
@@ -36,6 +38,11 @@ class BirdsController < ApplicationController
 
   # GET /birds/1 or /birds/1.json
   def show
+    @bird = Bird.find(params[:id])
+    authorize @bird
+
+    rescue Pundit::NotAuthorizedError
+    redirect_to root_path, alert: "Not Authorized"
   end
 
   # GET /birds/new
@@ -46,6 +53,11 @@ class BirdsController < ApplicationController
 
   # GET /birds/1/edit
   def edit
+    @bird = Bird.find(params[:id])
+    authorize @bird
+
+    rescue Pundit::NotAuthorizedError
+    redirect_to root_path, alert: "Not Authorized"
   end
 
   def take_photo
