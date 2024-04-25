@@ -1,21 +1,25 @@
-<%= link_to "Manually Add Bird Entry", new_bird_path %>
+<div class="centered">
+  <%= link_to "Manually Add Bird Entry", new_bird_path, class: "manually_add_button" %>
+</div>
 <br><br>
 
-<h2> Take Photo </h2>
+<h1> Take Photo </h1>
 
-<%= form_with model: @bird, url: "/birds/camera", method: :post, local: true do |form| %>
+<div class="centered">
+  <%= form_with model: @bird, url: "/birds/camera", method: :post, local: true do |form| %>
 
-  <%= form.file_field :image, capture: "environment", accept:"image/*,video/*" %>
-  <br><br>
+    <%= form.file_field :image, capture: "environment", accept:"image/*,video/*" %>
+    <br><br>
 
-  <%= form.hidden_field :user_id %>
-  <%= form.hidden_field :name %>
-  <%= form.hidden_field :datetime %>
-  <%= form.hidden_field :latitude, id: 'latitude' %>
-  <%= form.hidden_field :longitude, id: 'longitude' %>
-  <%= form.hidden_field :notes %>
+    <%= form.hidden_field :user_id %>
+    <%= form.hidden_field :name %>
+    <%= form.hidden_field :datetime %>
+    <%= form.hidden_field :latitude, id: 'latitude' %>
+    <%= form.hidden_field :longitude, id: 'longitude' %>
+    <%= form.hidden_field :notes %>
+</div>
 
-  <div>
+  <div class="centered">
     <%= form.submit "Submit", id: "captureButton", class: "submit_button" %>
   </div>
 <% end %>
