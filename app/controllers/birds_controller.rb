@@ -6,8 +6,6 @@ require 'cgi'
 require 'active_support/all'
 
 class BirdsController < ApplicationController
-  # include ApplicationHelper
-
   before_action :authenticate_user!
   before_action :set_bird, only: %i[ show edit update destroy ]
 
@@ -70,40 +68,34 @@ class BirdsController < ApplicationController
     latitude = params[:latitude]
     longitude = params[:longitude]
 
+    # Moving image to a temporary file in public/uploads
     if uploaded_file.present?
       File.open(Rails.root.join('public', 'uploads', uploaded_file.original_filename), 'wb') do |file|
         file.write(uploaded_file.read)
       end
     end
-
     image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg')
+
+    # ImageUploader service generates object url
     uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
 
+    # Using Flask server for classification
     url = ENV['FLASK']
-    bucket_name = ENV['S3_BUCKET']
-    aws_region = ENV['AWS_REGION']
 
+    # Get object url from ImageUploader service and send to Flask. Server responds with name 
     s3_object_url = uploader.upload()
     data = { url: s3_object_url }
-
     @response = RestClient.post(url, data.to_json, content_type: :json)
     @response_body = @response.body
-
-    puts "response_body_photo #{@response_body}"
-
     @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
-
     @bird.name = @response_body
 
-    utc_datetime_string = Time.new.to_s
-    utc_datetime = DateTime.strptime(utc_datetime_string, "%Y-%m-%d %H:%M:%S %z")
-    local_datetime = utc_datetime.in_time_zone(ActiveSupport::TimeZone['Central Time (US & Canada)'])
-    formatted_datetime = local_datetime.strftime("%B-%-d-%Y %H:%M")
-    @bird.datetime = formatted_datetime
-
+    # Get datetime
+    photo_datetime()
+ 
+    # Send BLOB data to ActiveStorage
     base64_data = blob_field.split(',')[1] 
     binary_data = Base64.strict_decode64(base64_data)
-    
     filename = "image_#{Time.current.to_i}.jpg"
     content_type = 'image/jpeg'
     image_blob = ActiveStorage::Blob.create_and_upload!(
@@ -111,8 +103,9 @@ class BirdsController < ApplicationController
       filename: filename,
       content_type: content_type
     )
-    
     @bird.image.attach(image_blob)
+
+    # Get location data from params
     @bird.latitude = latitude
     @bird.longitude = longitude
     
@@ -127,6 +120,14 @@ class BirdsController < ApplicationController
         format.json { render json: @bird.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def photo_datetime
+    utc_datetime_string = Time.new.to_s
+    utc_datetime = DateTime.strptime(utc_datetime_string, "%Y-%m-%d %H:%M:%S %z")
+    local_datetime = utc_datetime.in_time_zone(ActiveSupport::TimeZone['Central Time (US & Canada)'])
+    formatted_datetime = local_datetime.strftime("%B-%-d-%Y %H:%M")
+    @bird.datetime = formatted_datetime
   end
 
   def take_camera
@@ -203,6 +204,8 @@ class BirdsController < ApplicationController
     end
 
     @bird = current_user.bird.build(bird_params)
+
+    # key is the string at the end of the S3 object url
     key = nil
 
     respond_to do |format|
@@ -216,34 +219,40 @@ class BirdsController < ApplicationController
       end
     end
 
+    # Using Flask server for classification
     url = ENV['FLASK']
+
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
     s3_object_url = "https://#{bucket_name}.s3.#{aws_region}.amazonaws.com/#{key}"
   
+    # Sending to server to get bird name
     data = { url: s3_object_url }
-
     @response = RestClient.post(url, data.to_json, content_type: :json)
     @response_body = @response.body
-
-    puts "response_body_create #{@response_body}"
-
     @bird.name = @response_body
 
+    # Get datetime of image upload
+    upload_datetime()
+
+    # Get coordinates from address
+    address_params = params[:bird][:address]
+    geolocator = Geolocation.new(address_params)
+    mapping = geolocator.mapping()
+    @bird.longitude = mapping[0]
+    @bird.latitude = mapping[1]
+
+    # Save address in notes
+    @bird.notes = "#{@bird.notes} (Bird seen at #{address_params})"
+    
+    @bird.save
+  end
+
+  def upload_datetime
     datetime_string = @bird.datetime.to_s
     datetime = DateTime.strptime(datetime_string, "%Y-%m-%d %H:%M:%S %z")
     formatted_datetime = datetime.strftime("%B-%-d-%Y %H:%M")
     @bird.datetime = formatted_datetime 
-
-    address_params = params[:bird][:address]
-
-    geolocator = Geolocation.new(address_params)
-    mapping = geolocator.mapping()
-
-    @bird.longitude = mapping[0]
-    @bird.latitude = mapping[1]
-    @bird.notes = "#{@bird.notes} (Bird seen at #{address_params})"
-    @bird.save
   end
 
   # PATCH/PUT /birds/1 or /birds/1.json
