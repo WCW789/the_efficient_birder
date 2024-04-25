@@ -348,6 +348,20 @@ a {
   margin-left: 1px;
 }
 
+.notice_message {
+  color: #515A5A;
+  font-size: larger;
+  font-weight: bolder;
+}
+
+.alert_message {
+  background-color: maroon;
+  color: #D6DBDF;
+  font-size: larger;
+  font-weight: bolder;
+  height: 50px;
+}
+
 @media (max-width: 450px) {
   .card {
     width: 90%;

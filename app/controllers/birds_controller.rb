@@ -40,7 +40,7 @@ class BirdsController < ApplicationController
     authorize @bird
 
     rescue Pundit::NotAuthorizedError
-    redirect_to root_path, alert: "Not Authorized"
+    redirect_to root_path, alert: "Not Authorized to View"
   end
 
   # GET /birds/new
@@ -55,7 +55,7 @@ class BirdsController < ApplicationController
     authorize @bird
 
     rescue Pundit::NotAuthorizedError
-    redirect_to root_path, alert: "Not Authorized"
+    redirect_to root_path, alert: "Not Authorized to View"
   end
 
   def take_photo
@@ -113,7 +113,7 @@ class BirdsController < ApplicationController
     
     respond_to do |format|
       if @bird.save
-        format.html { redirect_to bird_url(@bird), notice: "Bird was successfully uploaded." }
+        format.html { redirect_to bird_url(@bird), notice: "Bird was successfully uploaded" }
         format.json { render :show, status: :created, location: @bird }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -139,61 +139,60 @@ class BirdsController < ApplicationController
       return redirect_to root_path, alert: "User not found"
     end
 
-    images = params[:image]
     latitude = params[:latitude]
     longitude = params[:longitude]
+    @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
 
     if params[:image].present?
       filename = "snapshot.jpeg"
 
+      # Moving image to a temporary file in public/uploads
       File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
         file.write(params[:image].read)
       end
     end
-
     image_path = Rails.root.join('public', 'uploads', 'snapshot.jpeg')
+
+    # ImageUploader service generates object url
     uploader = ImageUploader.new(image_path, ENV['S3_BUCKET'])
 
-    @bird = current_user.bird.build(user_id: params[:user_id], name: params[:name], datetime: params[:datetime], notes: params[:notes], latitude: params[:latitude], longitude: params[:longitude])
+    # Using Flask server for classification
+    url = ENV['FLASK']
+
+    # Get object url from ImageUploader service and send to Flask. Server responds with name
+    s3_object_url = uploader.upload()
+    data = { url: s3_object_url }
+    @response = RestClient.post(url, data.to_json, content_type: :json)
+    @response_body = @response.body
+    @bird.name = @response_body
+
+     # Send BLOB data to ActiveStorage
+    content_type = params[:image].content_type
+    image_blob = ActiveStorage::Blob.create_and_upload!(
+      io: params[:image].open,
+      filename: filename,
+      content_type: content_type
+    )
+    @bird.image.attach(image_blob)
+
+    # Get current datetime
+    photo_datetime()
+
+    # Get location data from params
+    @bird.latitude = latitude
+    @bird.longitude = longitude
+    
+    @bird.save
 
     respond_to do |format|
       if @bird.save
-        format.html { redirect_to bird_url(@bird), notice: "Bird was successfully uploaded." }
+        format.html { redirect_to bird_url(@bird), notice: "Bird was successfully uploaded" }
         format.json { render :show, status: :created, location: @bird }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @bird.errors, status: :unprocessable_entity }
       end
     end
-
-    url = ENV['FLASK']
-    bucket_name = ENV['S3_BUCKET']
-    aws_region = ENV['AWS_REGION']
-
-    s3_object_url = uploader.upload()
-    data = { url: s3_object_url }
-
-    @response = RestClient.post(url, data.to_json, content_type: :json)
-    @response_body = @response.body
-    
-    puts "response_body_camera #{@response_body}"
-
-    @bird.name = @response_body
-    @bird.datetime = Time.new
-
-    content_type = params[:image].content_type
-
-    image_blob = ActiveStorage::Blob.create_and_upload!(
-      io: params[:image].open,
-      filename: filename,
-      content_type: content_type
-    )
-
-    @bird.image.attach(image_blob)
-    @bird.latitude = latitude
-    @bird.longitude = longitude
-    
-    @bird.save
   end
 
 
@@ -211,7 +210,7 @@ class BirdsController < ApplicationController
     respond_to do |format|
       if @bird.save
         key = @bird.image.first.key
-        format.html { redirect_to bird_url(@bird), notice: "Bird was successfully created." }
+        format.html { redirect_to bird_url(@bird), notice: "Bird was successfully created" }
         format.json { render :show, status: :created, location: @bird }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -244,7 +243,7 @@ class BirdsController < ApplicationController
 
     # Save address in notes
     @bird.notes = "#{@bird.notes} (Bird seen at #{address_params})"
-    
+
     @bird.save
   end
 

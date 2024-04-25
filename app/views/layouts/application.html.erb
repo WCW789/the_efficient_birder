@@ -25,11 +25,11 @@
     <br><br><br><br><br>
 
     <% if notice.present? %>
-      <p class="notice centered"><%= notice %></p>
+      <p class="notice centered notice_message"><%= notice %></p>
     <% end %>
     
     <% if alert.present? %>
-      <p class="alert centered"><%= alert %></p>
+      <p class="alert centered alert_message"><%= alert %></p>
     <% end %>
 
     <%= yield %>
