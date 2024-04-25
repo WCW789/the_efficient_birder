@@ -7,20 +7,12 @@ body {
 }
 
 .flex-container_left {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
   width: 50%;
 }
 
 .flex-container_right {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: row-reverse;
-  width: 100%;
+  margin-left: auto;
+  width: 50%;
 }
 
 .flex-item {
@@ -83,7 +75,7 @@ h3 {
   font-size: x-large;
   font-weight: bold;
   color: black;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -132,9 +124,19 @@ nav li {
   padding-right: 75px;
 }
 
-img, video {
+img {
   height: 150px;
   max-width: 100%;
+}
+
+video {
+  max-width: 100%;
+}
+
+.video_margin {
+  height: 350px;
+  margin-top: -200px;
+  margin-left: 50px;
 }
 
 .shadowing {
@@ -252,6 +254,10 @@ a {
   text-decoration: none;
   font-family: Avenir;
   border-radius: 22px 22px 22px 22px;
+}
+
+.login_background {
+  background-image: url('/assets/background1.png');
 }
 
 .new_bird_button {
