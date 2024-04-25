@@ -27,8 +27,8 @@ body {
 .logo_image {
   background-image: url('/assets/logo1.png');
   height: 50px;
-  width: 78%;
-  padding-left: 10px;
+  /* width: 78%;
+  padding-left: 10px; */
   margin-left: 10px;
 }
 

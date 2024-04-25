@@ -1,4 +1,4 @@
-# class ImagesController < ApplicationController
+class ImagesController < ApplicationController
 #   before_action :set_image, only: %i[ show edit update destroy ]
 
 #   # GET /images or /images.json
@@ -67,4 +67,4 @@
 #     def image_params
 #       params.require(:image).permit(:user_id, :bird_id, :image)
 #     end
-# end
+end
