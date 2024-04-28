@@ -10,41 +10,36 @@
       </ul>
     </div>
   <% end %>
+  <div>
+    <%= form.hidden_field :user_id %>
+    
+    <div>
+      <%= form.label :name, style: "display: block" %>
+      <%= form.text_field :name %>
+    </div>
 
-  <div>
-    <%= form.fields_for :image do |image_upload| %>
-      <%= image_upload.file_field :image %>
-    <% end %>
-  <div>
+    <div>
+      <%= form.label :datetime, style: "display: block" %>
+      <%= form.datetime_field :datetime %>
+    </div>
 
-  <%= form.hidden_field :user_id %>
-  
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
+    <div>
+      <%= form.label :latitude, style: "display: block" %>
+      <%= form.text_field :latitude %>
+    </div>
 
-  <div>
-    <%= form.label :datetime, style: "display: block" %>
-    <%= form.datetime_field :datetime %>
-  </div>
+    <div>
+      <%= form.label :longitude, style: "display: block" %>
+      <%= form.text_field :longitude %>
+    </div>
 
-  <div>
-    <%= form.label :latitude, style: "display: block" %>
-    <%= form.text_field :latitude %>
-  </div>
+    <div>
+      <%= form.label :notes, style: "display: block" %>
+      <%= form.text_area :notes %>
+    </div>
 
-  <div>
-    <%= form.label :longitude, style: "display: block" %>
-    <%= form.text_field :longitude %>
-  </div>
-
-  <div>
-    <%= form.label :notes, style: "display: block" %>
-    <%= form.text_area :notes %>
-  </div>
-
-  <div>
-    <%= form.submit 'Submit', id: 'submitButton' %>
+    <div>
+      <%= form.submit 'Submit', id: 'submitButton' %>
+    </div>
   </div>
 <% end %>
