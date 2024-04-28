@@ -6,13 +6,14 @@ body {
   font-family: Gill Sans, sans-serif;
 }
 
-.flex-container_left {
+.flex_container_left {
   width: 50%;
+  float: left;
 }
 
-.flex-container_right {
-  margin-left: auto;
+.flex_container_right {
   width: 50%;
+  float: right;
 }
 
 .flex-item {
@@ -27,8 +28,6 @@ body {
 .logo_image {
   background-image: url('/assets/logo1.png');
   height: 50px;
-  /* width: 78%;
-  padding-left: 10px; */
   margin-left: 10px;
 }
 
@@ -120,10 +119,6 @@ nav li {
   flex: 1;
 }
 
-.padding-75 {
-  padding-right: 75px;
-}
-
 img {
   height: 150px;
   max-width: 100%;
@@ -134,9 +129,9 @@ video {
 }
 
 .video_margin {
-  height: 350px;
-  margin-top: -200px;
   margin-left: 50px;
+  margin-top: 50px;
+  width: 90%;
 }
 
 .shadowing {
@@ -146,6 +141,8 @@ video {
 a {
   color: #515A5A;
 }
+
+/* Mapbox */
 
 #map {
   position: absolute;
@@ -159,6 +156,8 @@ a {
   height: 15px;
   border-radius: 50%;
 }
+
+/* Drawer */
 
 .drawer {
   position: relative;
@@ -368,8 +367,22 @@ a {
   height: 50px;
 }
 
-@media (max-width: 450px) {
+/* Media Queries */
+
+@media (max-width: 768px) {
   .card {
     width: 90%;
+  }
+
+  .flex_container_left,
+  .flex_container_right {
+    float: none;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .video_margin {
+    margin-left: 0px;
+    width: 97.5%;
   }
 }

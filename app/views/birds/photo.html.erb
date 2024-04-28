@@ -34,12 +34,22 @@
 <br>
 
 <script>
-const latitudeInput = document.getElementById('latitude')
-const longitudeInput = document.getElementById('longitude')
 
-const video = document.getElementById('video');
-const canvas = document.getElementById('canvas');
-const captureButton = document.getElementById('captureButton');
+if (!window.latitudeInput) {
+    const latitudeInput = document.getElementById('latitude')
+}
+if (!window.longitudeInput) {
+    const longitudeInput = document.getElementById('longitude')
+}
+if (!window.video) {
+    const video = document.getElementById('video');
+}
+if (!window.canvas) {
+    const canvas = document.getElementById('canvas');
+}
+if (!window.captureButton) {
+    const captureButton = document.getElementById('captureButton');
+}
 
 navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
   .then(stream => {

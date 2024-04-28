@@ -1,7 +1,7 @@
 <div class="background_image">
-  <div class="flex-container_left">
+  <div class="flex_container_left">
     <h3 class="flex-item centered"> The Birding Journal that Classifies the Bird For You </h3>
-    <h4 class="flex-item centered"> Take a picture or upload an image through the app and peruse your entries in this electronic journal that immediately identifies the bird in photo </h4>
+    <h4 class="flex-item centered"> Take a picture or upload an image through the app and peruse your entries in this electronic journal that identifies the bird in the photo for you </h4>
     <br>
 
     <div class="sign_up flex-item">
@@ -15,7 +15,7 @@
       </div>
       <div class="drawer-side">
         <label for="drawer-toggle" class="drawer-overlay"></label>
-        <div class="drawer-menu flex-container_left login_background">
+        <div class="drawer-menu flex_container_left login_background">
 
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="field">
@@ -43,18 +43,20 @@
             <div class="actions centered">
               <%= f.submit "Submit", class: "submit_button" %>
             </div>
+            <br>
+            <%= link_to "Cancel", root_path, id:"cancel-reload"%>
           <% end %>
         </div>
       </div>
     </div>
   </div>
 
-  <%# <div class="flex-container_right">
+  <div class="flex_container_right">
     <video controls class="video_margin" loop autoplay>
       <source src="/uploads/TestVideo.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-  </div> %>
+  </div>
 </div>
 
 <script>
@@ -71,6 +73,14 @@ document.addEventListener('turbo:load', () => {
   drawerOverlay.addEventListener('click', () => {
     drawer.classList.remove('open');
   });
+
+  const cancelReload = document.getElementById('cancel-reload');
+
+  if (cancelReload) {
+    cancelReload.addEventListener('click', function() {
+      window.location.reload();
+    });
+  }
 });
 
 </script>
