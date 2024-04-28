@@ -35,17 +35,8 @@
 
 <script>
 
-if (!window.latitudeInput) {
-    const latitudeInput = document.getElementById('latitude')
-}
-if (!window.longitudeInput) {
-    const longitudeInput = document.getElementById('longitude')
-}
 if (!window.video) {
     const video = document.getElementById('video');
-}
-if (!window.canvas) {
-    const canvas = document.getElementById('canvas');
 }
 if (!window.captureButton) {
     const captureButton = document.getElementById('captureButton');
@@ -61,6 +52,10 @@ navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
 
 captureButton.addEventListener('click', (event) => {
   event.preventDefault();
+
+  const latitudeInput = document.getElementById('latitude')
+  const longitudeInput = document.getElementById('longitude')
+  const canvas = document.getElementById('canvas');
 
   canvas.width = 125
   canvas.height = 100
