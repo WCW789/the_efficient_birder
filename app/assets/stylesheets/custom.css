@@ -488,4 +488,8 @@ a {
   .iframe {
     height: 215px
   }
+
+  .testimonial {
+    width: auto;
+  }
 }
