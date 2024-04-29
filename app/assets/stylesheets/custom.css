@@ -492,4 +492,8 @@ a {
   .testimonial {
     width: auto;
   }
+
+  .new_entry {
+    height: auto;
+  }
 }
