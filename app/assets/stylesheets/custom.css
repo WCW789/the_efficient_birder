@@ -6,6 +6,10 @@ body {
   font-family: Gill Sans, sans-serif;
 }
 
+.display_heading {
+  display: none;
+}
+
 .flex_container_left {
   width: 50%;
   float: left;
@@ -63,14 +67,34 @@ h1 {
 h2 {
   font-size: xxx-large;
   font-weight: bolder;
-  color: #703e3e;
+  color: #515A5A;
   padding-top: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-h3 {
+.landing_page_title {
+  font-size: xx-large;
+  font-weight: bold;
+  color: #515A5A;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing_page_subtitle {
+  font-size: x-large;
+  font-weight: bold;
+  color: #F4F6F7;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome {
   font-size: x-large;
   font-weight: bold;
   color: black;
@@ -188,7 +212,7 @@ a {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 50%;
+  height: 82.5%;
   transform: translateY(100%);
   transition: transform 0.3s ease-in-out;
 }
@@ -200,7 +224,6 @@ a {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.3s linear;
@@ -238,7 +261,7 @@ a {
 .sign_up_button {
   background-color: #FA7A34;
   font-size: 25px;
-  color: white;
+  color: #F4F6F7;
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
@@ -247,7 +270,7 @@ a {
 
 .submit_button {
   background-color: #515A5A;
-  color: white;
+  color: #F4F6F7;
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
@@ -256,7 +279,9 @@ a {
 }
 
 .login_background {
-  background-image: url('/assets/background1.png');
+  background-color: #E9EB78;
+  padding: 20px;
+  border-radius: 5%;
 }
 
 .new_bird_button {
@@ -282,7 +307,7 @@ a {
 
 .export_button {
   background-color: #FA7A34;
-  color: white;
+  color: #F4F6F7;
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
@@ -291,7 +316,7 @@ a {
 
 .back_button {
   background-color: #FA7A34;
-  color: white;
+  color: #F4F6F7;
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
@@ -300,7 +325,7 @@ a {
 
 .edit_button {
   background-color: #FA7A34;
-  color: white;
+  color: #F4F6F7;
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
@@ -309,7 +334,7 @@ a {
 
 .delete_button {
   background-color: maroon;
-  color: white;
+  color: #F4F6F7;
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
@@ -324,7 +349,7 @@ a {
 .customize_camera_button label {
   cursor: pointer;
   background-color: teal;
-  color: white;
+  color: #F4F6F7;
   padding: 0.5rem 1rem;
   border: none;
   text-decoration: none;
@@ -383,6 +408,11 @@ a {
 
   .video_margin {
     margin-left: 0px;
+    margin-top: 0px;
     width: 97.5%;
+  }
+
+  .display_heading {
+    display: block;
   }
 }
