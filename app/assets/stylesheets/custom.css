@@ -152,10 +152,11 @@ video {
   max-width: 100%;
 }
 
-.video_margin {
+.video {
   margin-left: 50px;
   margin-top: 50px;
   width: 90%;
+  height: 100%;
 }
 
 .shadowing {
@@ -406,7 +407,7 @@ a {
     margin: 0 auto;
   }
 
-  .video_margin {
+  .video {
     margin-left: 0px;
     margin-top: 0px;
     width: 97.5%;
