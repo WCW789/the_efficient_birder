@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get("/birds/camera", { :controller => "birds", :action => "take_camera" })
   post("/birds/camera", { :controller => "birds", :action => "save_camera" })
   get("/birds/export", { :controller => "birds", :action => "export"})
-  get("/uploads/:filename", { :controller => "uploads", :action => "show", constraints: { filename: /[^\/]+/ } })
+  get("/uploads/TestVideo.mp4", { :controller => "uploads", :action => "show" })
   resources :birds
 
 end
