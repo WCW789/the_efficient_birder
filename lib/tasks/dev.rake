@@ -7,9 +7,9 @@ task({ :sample_data => :environment }) do
     puts "Bird and user data destroyed successfully!"
 
     User.create([
-      { username: 'Winnie', email: ENV['EMAIL'], admin: true, password: ENV['SEED_PASSWORD'] },
-      { username: 'AnneAnn', email: 'anne@example.com', admin: true, password: ENV['SEED_PASSWORD'] },
-      { username: 'JohnJones', email: 'john@example.com', password: ENV['SEED_PASSWORD'] }
+      { username: 'Winnie', email: 'winnie@example.com', admin: true, password: 'password' },
+      { username: 'AnneAnn', email: 'anne@example.com', admin: true, password: 'password' },
+      { username: 'JohnJones', email: 'john@example.com', password: 'password' }
     ])
 
     Bird.create([

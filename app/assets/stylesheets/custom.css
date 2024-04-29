@@ -494,6 +494,6 @@ a {
   }
 
   .new_entry {
-    height: auto;
+    height: 200px;
   }
 }
