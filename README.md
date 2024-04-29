@@ -14,7 +14,7 @@ The landing page showcases all the birds that the user has seen already. Entries
 
 <img width="1394" alt="Homepage of birding journal" src="https://github.com/WCW789/the_efficient_birder/assets/32531807/c6cc40c0-74fa-4aea-becf-7c4199c7eb12">
 
-If a user wants to add a new entry, they would click on "New Bird". This would take them to the camera option. After they have captured an image, the image data will be sent to an AWS S3 bucket; an object url from S3 is then sent to a Flask server where the pre-trained model works on the identification. Once the classiciation is complete, the name is rendered on the UI:
+If a user wants to add a new entry, they would click on "New Bird". This would take them to the camera option. After they have captured an image, the image data is sent to an AWS S3 bucket; an object url from S3 is then sent to a Flask server where the pre-trained model works on the identification. Once the classification is complete, the name is rendered on the UI:
 
 <img width="402" alt="Camera capture view" src="https://github.com/WCW789/the_efficient_birder/assets/32531807/879241dd-a1ca-4f42-9287-d1ff48030597">
 
@@ -22,7 +22,7 @@ Users have the ability to upload an image as well. There is a slightly different
 
 <img width="1396" alt="Uploading an image" src="https://github.com/WCW789/the_efficient_birder/assets/32531807/56fd3422-debd-4c5c-8f7c-bc5cbbea802f">
 
-Once an image is captured or uploaded, an entry will be created much like the following:
+Once an image is captured or uploaded, an entry is created much like the following that can be viewed individually or on the homepage:
 
 <img width="454" alt="Example of journal entry" src="https://github.com/WCW789/the_efficient_birder/assets/32531807/508b9ef5-d412-45db-92b8-d47194dc5e79">
 

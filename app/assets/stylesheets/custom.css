@@ -13,6 +13,7 @@ body {
 .flex_container_left {
   width: 50%;
   float: left;
+  margin-bottom: 50px;
 }
 
 .flex_container_right {
@@ -33,6 +34,11 @@ body {
   background-image: url('/assets/logo1.png');
   height: 50px;
   margin-left: 10px;
+}
+
+.new_entry {
+  background-image: url('/assets/new_entry.png');
+  height: 100%;
 }
 
 .nav {
@@ -218,7 +224,7 @@ a {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 82.5%;
+  height: 75%;
   transform: translateY(100%);
   transition: transform 0.3s ease-in-out;
 }
@@ -285,8 +291,8 @@ a {
 }
 
 .login_background {
-  background-color: #E9EB78;
-  padding: 20px;
+  background-color: #D6DBDF;
+  padding: 30px;
   border-radius: 5%;
 }
 
@@ -379,6 +385,25 @@ a {
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.9);
 }
 
+.testimonial {
+  background-color: #D6DBDF;
+  border-radius: 4px;
+  border: 5px solid #D6DBDF;
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  padding: 20px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.9);
+}
+
+.margin_right {
+  margin-right: 50px;
+}
+
+.margin_left {
+  margin-left: 200px;
+}
+
 .required {
   display: inline-block;
   margin-left: 1px;
@@ -448,6 +473,14 @@ a {
 @media (max-width: 568px) {
   .iframe {
     height: 275px
+  }
+
+  .margin_left {
+    margin-left: 0px;
+  }
+
+  .testimonial {
+    width: auto;
   }
 }
 

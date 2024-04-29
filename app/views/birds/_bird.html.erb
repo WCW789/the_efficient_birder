@@ -1,49 +1,47 @@
-<%# <% if bird.image.attached? %>
-  <div class="card">
-    <div id="<%= dom_id bird %>">
+<div class="card">
+  <div id="<%= dom_id bird %>">
 
-      <% bird.image.each do |img| %>
-        <div class="centered">
-          <%= image_tag img.variant(resize_to_limit: [224, nil]), class: 'shadowing' %>
-        </div>
-      <% end %>
-
-      <p class="centered" >
-        <strong>Name: &nbsp; </strong>
-        <%= bird.name %>
-      </p>
-
-      <p class="centered" >
-        <strong>Datetime: &nbsp; </strong>
-        <%= bird.datetime %>
-      </p>
-
-      <p class="centered" >
-        <strong>Latitude: &nbsp; </strong>
-        <%= bird.latitude %>
-      </p>
-
-      <p class="centered" >
-        <strong>Longitude: &nbsp; </strong>
-        <%= bird.longitude %>
-      </p>
-
+    <% bird.image.each do |img| %>
       <div class="centered">
-        <div id="map-<%= bird.id %>" class="map" 
-          data-latitude="<%= bird.latitude %>" 
-          data-longitude="<%= bird.longitude %>"
-          style='width: 300px; height: 200px;'>
-        </div>
+        <%= image_tag img.variant(resize_to_limit: [224, nil]), class: 'shadowing' %>
       </div>
+    <% end %>
 
-      <p class="centered">
-        <strong>Notes: &nbsp; </strong>
-        <%= bird.notes %>
-      </p>
-      <br>
+    <p class="centered" >
+      <strong>Name: &nbsp; </strong>
+      <%= bird.name %>
+    </p>
+
+    <p class="centered" >
+      <strong>Datetime: &nbsp; </strong>
+      <%= bird.datetime %>
+    </p>
+
+    <p class="centered" >
+      <strong>Latitude: &nbsp; </strong>
+      <%= bird.latitude %>
+    </p>
+
+    <p class="centered" >
+      <strong>Longitude: &nbsp; </strong>
+      <%= bird.longitude %>
+    </p>
+
+    <div class="centered">
+      <div id="map-<%= bird.id %>" class="map" 
+        data-latitude="<%= bird.latitude %>" 
+        data-longitude="<%= bird.longitude %>"
+        style='width: 300px; height: 200px;'>
+      </div>
     </div>
+
+    <p class="centered">
+      <strong>Notes: &nbsp; </strong>
+      <%= bird.notes %>
+    </p>
+    <br>
   </div>
-<%# <% end %>
+</div>
 <br>
 
 <%= render partial: 'mapbox' %>
