@@ -159,6 +159,11 @@ video {
   height: 100%;
 }
 
+.iframe {
+  width: 100%;
+  height: 375px;
+}
+
 .shadowing {
   box-shadow: 0 7.5px 15px 0 rgba(0, 0, 0, 0.8);
 }
@@ -395,6 +400,18 @@ a {
 
 /* Media Queries */
 
+@media (max-width: 1150px) {
+  .iframe {
+    height: 300px
+  }
+}
+
+@media (max-width: 1075px) {
+  .iframe {
+    height: 275px
+  }
+}
+
 @media (max-width: 768px) {
   .card {
     width: 90%;
@@ -415,5 +432,27 @@ a {
 
   .display_heading {
     display: block;
+  }
+
+  .iframe {
+    height: 365px
+  }
+}
+
+@media (max-width: 650px) {
+  .iframe {
+    height: 300px
+  }
+}
+
+@media (max-width: 568px) {
+  .iframe {
+    height: 275px
+  }
+}
+
+@media (max-width: 375px) {
+  .iframe {
+    height: 215px
   }
 }
