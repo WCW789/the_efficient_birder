@@ -196,7 +196,7 @@ class BirdsController < ApplicationController
 
 
   # POST /birds or /birds.json
-  def create
+  def create #currently refactoring and making the steps to get bird name into a service
     unless current_user
       return redirect_to root_path, alert: "User not found"
     end
