@@ -1,0 +1,1 @@
+/* not using tailwind, planning to remove this file but doing so currently breaks production. I believe I should remove the tailwind gem but do not want to make further changes that could potentially break prod at this time */
