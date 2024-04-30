@@ -20,9 +20,8 @@ class BirdsController < ApplicationController
   end
 
   def export
+    # Functionality in progress
     @birds = Bird.all
-
-    # render birds_export_path
 
     respond_to do |format|
       format.html

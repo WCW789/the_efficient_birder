@@ -20,4 +20,4 @@ class Task < ApplicationRecord
   belongs_to :user
 end
 
-# I am keeping this tasks model as in the future I would like to send emails after a certain action is made
+# I am keeping this tasks model as in the future I would like to send emails after a certain action is made. Sending email functionality in progress

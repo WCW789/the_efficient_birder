@@ -1,4 +1,4 @@
-# I am keeping this tasks controller as in the future I would like to send emails after a certain action is made
+# I am keeping this tasks controller as in the future I would like to send emails after a certain action is made. Sending email functionality in progress
 
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
