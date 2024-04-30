@@ -6,9 +6,6 @@ ruby "3.2.1"
 # AWS
 gem 'aws-sdk-s3', require: false
 
-# Tailwind
-gem "tailwindcss-rails", "~> 2.3"
-
 # Admin
 gem "rails_admin", "~> 3.1"
 
