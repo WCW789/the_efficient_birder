@@ -1,3 +1,4 @@
+# are these necessary?
 require 'rest-client'
 require 'json'
 require 'uri'
@@ -5,6 +6,7 @@ require 'net/http'
 require 'cgi'
 require 'active_support/all'
 
+# this controller has a lot going on, it could be refactored into services or concerns
 class BirdsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_bird, only: %i[ show edit update destroy ]
@@ -56,11 +58,11 @@ class BirdsController < ApplicationController
     rescue Pundit::NotAuthorizedError
     redirect_to root_path, alert: "Not Authorized to View"
   end
-
+  # take_photo and save_photo could be concerned out
   def take_photo
     render birds_photo_path
   end
-
+  # a more OOP approach could simplify this method and make it more readable
   def save_photo
     uploaded_file = params[:blobb]
     blob_field = params[:blob_field]
@@ -81,7 +83,7 @@ class BirdsController < ApplicationController
     # Using Flask server for classification
     url = ENV['FLASK']
 
-    # Get object url from ImageUploader service and send to Flask. Server responds with name 
+    # Get object url from ImageUploader service and send to Flask. Server responds with name
     s3_object_url = uploader.upload()
     data = { url: s3_object_url }
     @response = RestClient.post(url, data.to_json, content_type: :json)
@@ -91,9 +93,9 @@ class BirdsController < ApplicationController
 
     # Get datetime
     photo_datetime()
- 
+
     # Send BLOB data to ActiveStorage
-    base64_data = blob_field.split(',')[1] 
+    base64_data = blob_field.split(',')[1]
     binary_data = Base64.strict_decode64(base64_data)
     filename = "image_#{Time.current.to_i}.jpg"
     content_type = 'image/jpeg'
@@ -107,9 +109,9 @@ class BirdsController < ApplicationController
     # Get location data from params
     @bird.latitude = latitude
     @bird.longitude = longitude
-    
+
     @bird.save
-    
+
     respond_to do |format|
       if @bird.save
         format.html { redirect_to bird_url(@bird), notice: "Bird was successfully uploaded" }
@@ -129,11 +131,11 @@ class BirdsController < ApplicationController
     @bird.datetime = formatted_datetime
   end
 
-  def take_camera
+  def take_camera # naming could be more explicit. not sure what it does
     render birds_camera_path
   end
 
-  def save_camera
+  def save_camera # naming could be more explicit. not sure what it does
     unless current_user
       return redirect_to root_path, alert: "User not found"
     end
@@ -180,7 +182,7 @@ class BirdsController < ApplicationController
     # Get location data from params
     @bird.latitude = latitude
     @bird.longitude = longitude
-    
+
     @bird.save
 
     respond_to do |format|
@@ -223,7 +225,7 @@ class BirdsController < ApplicationController
     bucket_name = ENV['S3_BUCKET']
     aws_region = ENV['AWS_REGION']
     s3_object_url = "https://#{bucket_name}.s3.#{aws_region}.amazonaws.com/#{key}"
-  
+
     # Sending to server to get bird name
     data = { url: s3_object_url }
     @response = RestClient.post(url, data.to_json, content_type: :json)
@@ -250,7 +252,7 @@ class BirdsController < ApplicationController
     datetime_string = @bird.datetime.to_s
     datetime = DateTime.strptime(datetime_string, "%Y-%m-%d %H:%M:%S %z")
     formatted_datetime = datetime.strftime("%B-%-d-%Y %H:%M")
-    @bird.datetime = formatted_datetime 
+    @bird.datetime = formatted_datetime
   end
 
   # PATCH/PUT /birds/1 or /birds/1.json

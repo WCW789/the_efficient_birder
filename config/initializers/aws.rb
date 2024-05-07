@@ -1,3 +1,4 @@
+# not sure you need this ; it actually broke the app on my laptop when I tried launching it
 require 'aws-sdk-s3'
 
 aws_credentials = Rails.application.credentials.dig(:aws)
