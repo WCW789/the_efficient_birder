@@ -1,3 +1,4 @@
+# nice use of service objects! 
 class MetaTagService
   def self.defaults
     {

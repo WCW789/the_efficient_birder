@@ -1,5 +1,5 @@
 require "active_support/core_ext/integer/time"
-
+# good job adding bullet gem!
 Rails.application.configure do
   config.after_initialize do
     Bullet.enable        = true

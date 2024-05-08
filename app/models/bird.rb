@@ -27,4 +27,6 @@ class Bird < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     ["datetime", "name"]
   end
+
+  # feels like a lot of the logic in the controller should be in the model instead
 end

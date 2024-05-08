@@ -3,7 +3,7 @@
 mapboxgl.accessToken = document.querySelector('meta[name="mapbox-access-token"]').content;
 
 var mapContainers = document.querySelectorAll('.map');
-
+// might want to encapsulate this in a function
 mapContainers.forEach(function(mapContainer) {
     var latitude = parseFloat(mapContainer.dataset.latitude);
     var longitude = parseFloat(mapContainer.dataset.longitude);
@@ -19,5 +19,5 @@ mapContainers.forEach(function(mapContainer) {
     new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
     } 
   });
-
+// indentation
   </script>

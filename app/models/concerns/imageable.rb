@@ -1,3 +1,4 @@
+# great concern!
 module Imageable
   extend ActiveSupport::Concern
 
