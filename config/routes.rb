@@ -1,5 +1,7 @@
+# very clean routes! I like the use of the authenticate method to only allow admins to access the RailsAdmin dashboard
 Rails.application.routes.draw do
   resources :tasks
+  # great!
   authenticate :user, ->(user) { user.admin? } do
     mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   end

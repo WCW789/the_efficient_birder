@@ -13,11 +13,12 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-
+    <%# nice! %>
     <meta name="mapbox-access-token" content="<%= ENV['MAPBOX'] %>">
   </head>
 
   <body>
+    <%# good use of partials! %>
     <%= render partial: "shared/navbar" %>
     <br><br><br><br><br>
     <%# could use a partial for flashes %>
